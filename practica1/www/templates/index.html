@@ -1,28 +1,224 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <!-- Required meta tags -->
+  <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sticky-footer-navbar/">
-    <title>Hello, world!</title>
-</head>
+    <title>Trabajo Práctico I</title>
+
+    <!-- Bootstrap core CSS -->
+    <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+
+    <!-- Custom styles for this template -->
+    <!-- <link href="css/blog-home.css" rel="stylesheet"> -->
 
 
-<body>
+    <link href="{{url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static',filename='css/blog-home.css')}}"  rel="stylesheet" >
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Trabajo Práctico I</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+
+          <h1 class="my-4">Microcontrolador
+            <small>Adquisición de datos.</small>
+          </h1>
+
+          <!-- Blog Post -->
+          <div class="card mb-4">
+            <div class="card-body">
+              <h2 class="card-title">Post Title</h2>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+
+              <h3>Elegir periodo de muestreo</h3><br>
+
+              <form class="form-inline">      
+                  <div class="row">
+                    <div class="col">
+                      <select class="form-control" style="width: 300px;">
+                          <option>Default</option>
+                          <option>1 segundo</option>
+                          <option>2 segundo</option>
+                          <option>5 segundo</option>
+                          <option>10 segundo</option>
+                          <option>30 segundo</option>
+                          <option>60 segundo</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                      <button type="submit" class="btn btn-primary mb-2">Confirm Update</button>
+                    </div>
+                  </div>
+                </form>
+
+                <br>
+
+              <h3>Medidas</h3><br>
+
+              <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Temperatura</th>
+                      <th scope="col">Humedad</th>
+                      <th scope="col">Presión</th>
+                      <th scope="col">Velocidad del Viento</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>0 [°C]</td>
+                      <td>10 [%]</td>
+                      <td>101900 [Pa]</td>
+                      <td>10 [Km/h]</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>10 [°C]</td>
+                      <td>20 [%]</td>
+                      <td>101900 [Pa]</td>
+                      <td>10 [Km/h]</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">3</th>
+                      <td>20 [°C]</td>
+                      <td>30 [%]</td>
+                      <td>101900 [Pa]</td>
+                      <td>10 [Km/h]</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">4</th>
+                      <td>30 [°C]</td>
+                      <td>30 [%]</td>
+                      <td>101900 [Pa]</td>
+                      <td>10 [Km/h]</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <h3>Promedios</h3><br>
+
+                <table class="table">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">-</th>
+                      <th scope="col">Medida</th>
+                      <th scope="col">Promedio</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">-</th>
+                      <td>Temperatura</td>
+                      <td>0 [°C]</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">-</th>
+                      <td>Humedad</td>
+                      <td>75 [%]</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">-</th>
+                      <td>Velocidad del Viento</td>
+                      <td>100 [Km/h]</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">-</th>
+                      <td>Presión</td>
+                      <td>101900 [Pa]</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+            <div class="card-footer text-muted">
+              Posted on January 1, 2017 by
+              <a href="#">Start Bootstrap</a>
+            </div>
+          </div>
 
 
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+        </div>
 
-</body>
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4">
+            <!-- Side Widget -->
+            <div class="card my-4">
+                <h5 class="card-header">Side Widget</h5>
+                <div class="card-body">
+                  You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+                </div>
+            </div>
+        </div>
+
+
+
+          
+
+        </div>
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <!--<script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+
+    <script src = "{{ url_for('static', filename = 'vendor/jquery/jquery.min.js') }}" ></script>
+    <script src = "{{ url_for('static', filename = 'vendor/bootstrap/js/bootstrap.bundle.min.js') }}" ></script>
+  
+  </body>
 
 </html>
