@@ -87,10 +87,10 @@
                   <tbody>
                     <tr>
                       <th scope="row">1</th>
-                      	<p id="demo"></p>
-                        <td id="dato">
+                      	<p id="dato"></p>
+                        <td>
 	                        <script> 
-							$(function(){
+							$( document ).ready(function(){
 								
 								var myObj, x, txt = "";
 	                        	//var counts = jQuery.parseJSON("{{ test }}");
@@ -98,12 +98,13 @@
 	                        	//var counts = jQuery.parseJSON('{"name":"Carlos", "Apellido": "Linares", "Dirección": "San Salvador"}');
 	                        	var counts = jQuery.parseJSON('{{ test|safe }}');
 	                        
-								$('#dato').html(counts.name);
+								//$('#dato').html(counts.name);
 
-								/*for (x in counts) {
-						            txt +=  + myObj[x].name;
+								for (x in counts) {
+						            txt +=  + counts[x].name + '<br>';
 						        }
-						        document.getElementById("dato").innerHTML = txt;*/
+
+						        document.getElementById("dato").innerHTML = txt;
 	                         });
 	                    	</script>
                     	</td>

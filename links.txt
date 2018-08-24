@@ -17,3 +17,6 @@ https://www.w3schools.com/jquery/ajax_getjson.asp
 :::::FLAKS JSON
 https://stackoverflow.com/questions/23038710/accessing-python-list-in-javascript-as-an-array/23039331#23039331
 https://stackoverflow.com/questions/23902596/how-to-use-flask-jsonify-and-render-a-template-in-a-flask-route
+
+:::::JSON PYTHON
+http://www.pythondiario.com/2017/10/analisis-de-json-con-python.html

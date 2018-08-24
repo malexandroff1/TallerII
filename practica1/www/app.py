@@ -29,11 +29,18 @@ def about():
 def result():
 	if request.method == 'POST':
 		#a = request.form['period']
-		test = {
-		  'name': 'John',
-		  'age': 30,
-		  'city': 'New York'
-		}
+		#test = {
+		#  'name': 'John',
+		#  'name1': 'Alexandre',
+		#  'name2': 'Potin'
+		#}
+
+		test = [
+			{ "name" : "001","edad" : "21","nombre" : "Luis" },
+			{ "name" : "002","edad" : "25","nombre" : "Andres" },
+			{ "name" : "003","edad" : "34","nombre" : "Jose" },
+			{ "name" : "004","edad" : "29","nombre" : "Jesus" }
+		]
 		#test = [name=1,2,3,4,5,6]
 		test = json.dumps(test)
 		return render_template('result.html', test=test)
