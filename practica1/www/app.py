@@ -28,11 +28,17 @@ def about():
 @app.route('/result',methods = ['POST', 'GET'])
 def result():
 	if request.method == 'POST':
-		a = request.form['period']
-		jsonStr = json.dumps(a)
-		return jsonify(result=jsonStr)
+		#a = request.form['period']
+		test = {
+		  'name': 'John',
+		  'age': 30,
+		  'city': 'New York'
+		}
+		#test = [name=1,2,3,4,5,6]
+		test = json.dumps(test)
+		return render_template('result.html', test=test)
 	else:
-		return render_template("result.html")
+		return render_template('result.html')
 
 
 if __name__ == "__main__":
