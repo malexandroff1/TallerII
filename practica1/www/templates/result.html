@@ -21,21 +21,12 @@
     <link href="{{url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{url_for('static',filename='css/blog-home.css')}}"  rel="stylesheet" >
 
+	 {% if test %}
     <script> 
 		$( document ).ready(function(){
 			
-			var myObj, x, txt = "";
-	    	//var counts = jQuery.parseJSON("{{ test }}");
-
-	    	//var counts = jQuery.parseJSON('{"name":"Carlos", "Apellido": "Linares", "Dirección": "San Salvador"}');
 	    	var counts = jQuery.parseJSON('{{ test|safe }}');
 	    
-			//$('#dato').html(counts.name);
-
-			for (x in counts) {
-	            txt +=  + counts[x].temp + '<br>';
-	        }
-
 	        var a_temperature,a_humidity,a_pressure,a_windspeed,m_temperature,m_humidity,m_pressure,m_windspeed;
 
 
@@ -59,6 +50,24 @@
 
 	     });
 	</script>
+	{% endif %}
+
+	<script>
+		$( document ).ready(function(){
+
+			function reload(time){
+				var url = "http://192.168.99.100:8888/resul.html"
+				//var url = window.location.href;    
+				
+				url += '?period=' + period;
+				
+				window.location.href = url;
+
+			}
+			
+		}
+
+	</script>
 
   </head>
 
@@ -79,7 +88,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="about">About</a>
+              <a class="nav-link" href="result.html">Métricas</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="services">Services</a>
