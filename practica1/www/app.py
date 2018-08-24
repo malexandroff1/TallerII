@@ -1,4 +1,5 @@
 # Imports
+from aux_pro import Process
 from flask import redirect, url_for, request, render_template, Flask
 from flask import jsonify
 from flask import json
@@ -6,7 +7,7 @@ from database import Database
 from models import Samples
 
 app = Flask(__name__)
-
+pro = Process()
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -31,11 +32,11 @@ def about():
 def result():
 	if request.method == 'POST':
 		#a = request.form['period']
-		
+		pro.start_process()
 		average=Samples()
 		last_meas=Samples()
 
-
+		'''
 		average.temperature = 56.4
 		average.humidity = 951.7
 		average.pressure = 43.1
@@ -44,12 +45,12 @@ def result():
 		last_meas.humidity = 38
 		last_meas.pressure = 901
 		last_meas.windspeed = 245
+		'''
 
 
-
-		#db=Database()
-		#last_meas = db.get_last_sample()
-		#average = db.get_average_sample()
+		db=Database()
+		last_meas = db.get_last_sample()
+		average = db.get_average_sample()
 
 		test = [
 			{ "temp" : average.temperature,"hum" : average.humidity,"pre" : average.pressure, "wind": average.windspeed},
@@ -63,6 +64,6 @@ def result():
 
 
 if __name__ == "__main__":
-    app.run(host='192.168.99.100', port=8888)
+    app.run(host='localhost', port=8888)
     #app.run(host='http://localhost', port=8888)
 
