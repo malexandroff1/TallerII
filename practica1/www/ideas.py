@@ -17,3 +17,26 @@ def thankyou():
         return jsonify(summary = data)
     else:
         return render_template('thankyou.html', summary=data))
+
+ <script type=text/javascript>
+      $(document).ready(function() {
+      
+          //sbtn is id of submit button
+          $('#btnsubmita').click(function(event) {
+            /* Act on the event */
+            $.ajax({
+              url: '/result', //server url
+              type: 'POST',    //passing data as post method
+              dataType: 'json', // returning data as json
+              data: {a:$('#period').val()},  //form values
+              success:function(json)
+              {
+                alert(json.result);  //response from the server given as alert message
+
+              }
+            
+            });
+            
+          });
+        });
+    </script>

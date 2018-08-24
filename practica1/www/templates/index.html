@@ -131,29 +131,6 @@
       <!-- /.container -->
     </footer>
 
-    <script type=text/javascript>
-      $(document).ready(function() {
-      
-          //sbtn is id of submit button
-          $('#btnsubmita').click(function(event) {
-            /* Act on the event */
-            $.ajax({
-              url: '/result', //server url
-              type: 'POST',    //passing data as post method
-              dataType: 'json', // returning data as json
-              data: {a:$('#period').val()},  //form values
-              success:function(json)
-              {
-                alert(json.result);  //response from the server given as alert message
-
-              }
-            
-            });
-            
-          });
-        });
-    </script>
-
     <script src = "{{ url_for('static', filename = 'vendor/jquery/jquery.min.js') }}" ></script>
     <script src = "{{ url_for('static', filename = 'vendor/bootstrap/js/bootstrap.bundle.min.js') }}" ></script>
   
