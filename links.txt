@@ -1,0 +1,19 @@
+:::::JSON
+
+https://code.tutsplus.com/tutorials/how-to-work-with-json-data-using-python--cms-25758
+
+:::::JSON JQUERY
+
+http://api.jquery.com/jquery.parsejson/
+https://gist.github.com/emersoncortez/4251683
+
+:::::JSON HTML
+https://www.w3schools.com/js/tryit.asp?filename=tryjson_html_table
+https://01luisrene.com/librerias-javascript-para-crear-galeria-de-fotos-y-sliders/
+
+:::::JQUERY
+https://www.w3schools.com/jquery/ajax_getjson.asp
+
+:::::FLAKS JSON
+https://stackoverflow.com/questions/23038710/accessing-python-list-in-javascript-as-an-array/23039331#23039331
+https://stackoverflow.com/questions/23902596/how-to-use-flask-jsonify-and-render-a-template-in-a-flask-route
