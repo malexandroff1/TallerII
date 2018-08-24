@@ -40,3 +40,12 @@ def thankyou():
           });
         });
     </script>
+
+
+   for (x in counts) {
+	            txt +=  + counts[x].temp + '<br>';
+	        }
+if (period > 0){
+			//var refresh = $('meta[name=refresh]').attr("content",period);
+			$('head').append('<meta http-equiv="refresh" content=' + 100 + ' />');
+		}
