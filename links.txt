@@ -21,3 +21,13 @@ https://stackoverflow.com/questions/23902596/how-to-use-flask-jsonify-and-render
 
 :::::JSON PYTHON
 http://www.pythondiario.com/2017/10/analisis-de-json-con-python.html
+
+:::::DOCKER
+https://medium.com/@DezkaReid/contenedores-de-aplicaciones-explorando-docker-56803821d333
+
+
+::::UTILES NOW
+
+https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-ii-templates
+https://sharepoint.stackexchange.com/questions/154809/reload-page-with-added-parameter
+https://www.tutorialspoint.com/flask/flask_http_methods.htm
