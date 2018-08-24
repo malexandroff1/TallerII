@@ -70,29 +70,88 @@
               <h2 class="card-title">Post Title</h2>
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
 
-              <h3>Elegir periodo de muestreo</h3><br>
 
-              <form class="form-inline" action = "http://192.168.99.100:8888/result" method="POST" name="add">      
-                  <div class="row">
-                    <div class="col">
-                      <select class="form-control" style="width: 300px;" name='period' id="period">
-                          <option value='0'>Default</option>
-                          <option value='1'>1 segundo</option>
-                          <option value='2'>2 segundo</option>
-                          <option value='3'>5 segundo</option>
-                          <option value='4'>10 segundo</option>
-                          <option value='5'>30 segundo</option>
-                          <option value='6'>60 segundo</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                      <button type="submit" name="btnsubmit" class="btn btn-primary mb-2">Confirm Update</button>
-                    </div>
-                  </div>
-                </form>
+              <h3>Medidas</h3><br>
 
-                <br>
+              <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Temperatura</th>
+                      <th scope="col">Humedad</th>
+                      <th scope="col">Presión</th>
+                      <th scope="col">Velocidad del Viento</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">1</th>
+                      {% for key, value in result.items() %}
+         
+				            <td>{{ key }}</td>
+                        	<td>{{ value }}</td>
+			            
+			         	{% endfor %}
+                        <td>101900 [Pa]</td>
+                        <td>10 [Km/h]</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>10 [°C]</td>
+                      <td>20 [%]</td>
+                      <td>101900 [Pa]</td>
+                      <td>10 [Km/h]</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">3</th>
+                      <td>20 [°C]</td>
+                      <td>30 [%]</td>
+                      <td>101900 [Pa]</td>
+                      <td>10 [Km/h]</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">4</th>
+                      <td>30 [°C]</td>
+                      <td>30 [%]</td>
+                      <td>101900 [Pa]</td>
+                      <td>10 [Km/h]</td>
+                    </tr>
+                  </tbody>
+                </table>
 
+                <h3>Promedios</h3><br>
+
+                <table class="table">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">-</th>
+                      <th scope="col">Medida</th>
+                      <th scope="col">Promedio</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">-</th>
+                      <td>Temperatura</td>
+                      <td>0 [°C]</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">-</th>
+                      <td>Humedad</td>
+                      <td>75 [%]</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">-</th>
+                      <td>Velocidad del Viento</td>
+                      <td>100 [Km/h]</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">-</th>
+                      <td>Presión</td>
+                      <td>101900 [Pa]</td>
+                    </tr>
+                  </tbody>
+                </table>
             </div>
             <div class="card-footer text-muted">
               Posted on January 1, 2017 by
@@ -115,6 +174,10 @@
             </div>
         </div>
 
+
+
+          
+
         </div>
 
       </div>
@@ -130,6 +193,10 @@
       </div>
       <!-- /.container -->
     </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <!--<script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
 
     <script src = "{{ url_for('static', filename = 'vendor/jquery/jquery.min.js') }}" ></script>
     <script src = "{{ url_for('static', filename = 'vendor/bootstrap/js/bootstrap.bundle.min.js') }}" ></script>
