@@ -31,11 +31,6 @@ def about():
 def result():
 	if request.method == 'POST':
 		#a = request.form['period']
-		#test = {
-		#  'name': 'John',
-		#  'name1': 'Alexandre',
-		#  'name2': 'Potin'
-		#}
 
 		#"[{&#34;hum&#34;: 56.4, &#34;pre&#34;: 951.7, &#34;temp&#34;: 43.1, &#34;wind&#34;: 298.9}, {&#34;hum&#34;: 38, &#34;pre&#34;: 901, &#34;temp&#34;: 21, &#34;wind&#34;: 245}]"
 		
@@ -55,5 +50,6 @@ def result():
 
 
 if __name__ == "__main__":
-    app.run(host='http://localhost', port=8888)
+    app.run(host='192.168.99.100', port=8888)
+    #app.run(host='192.168.99.100', port=8888)
 
