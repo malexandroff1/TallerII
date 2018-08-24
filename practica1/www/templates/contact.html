@@ -69,30 +69,6 @@
             <div class="card-body">
               <h2 class="card-title">Post Title</h2>
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-
-              <h3>Elegir periodo de muestreo</h3><br>
-
-              <form class="form-inline" action = "http://192.168.99.100:8888/result" method="POST" name="add">      
-                  <div class="row">
-                    <div class="col">
-                      <select class="form-control" style="width: 300px;" name='period' id="period">
-                          <option value='0'>Default</option>
-                          <option value='1'>1 segundo</option>
-                          <option value='2'>2 segundo</option>
-                          <option value='3'>5 segundo</option>
-                          <option value='4'>10 segundo</option>
-                          <option value='5'>30 segundo</option>
-                          <option value='6'>60 segundo</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                      <button type="submit" name="btnsubmit" class="btn btn-primary mb-2">Confirm Update</button>
-                    </div>
-                  </div>
-                </form>
-
-                <br>
-
             </div>
             <div class="card-footer text-muted">
               Posted on January 1, 2017 by
@@ -113,7 +89,7 @@
                   You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
                 </div>
             </div>
-        </div>
+        </div>          
 
         </div>
 
@@ -130,6 +106,10 @@
       </div>
       <!-- /.container -->
     </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <!--<script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
 
     <script src = "{{ url_for('static', filename = 'vendor/jquery/jquery.min.js') }}" ></script>
     <script src = "{{ url_for('static', filename = 'vendor/bootstrap/js/bootstrap.bundle.min.js') }}" ></script>
