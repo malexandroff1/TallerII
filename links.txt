@@ -10,6 +10,7 @@ https://gist.github.com/emersoncortez/4251683
 :::::JSON HTML
 https://www.w3schools.com/js/tryit.asp?filename=tryjson_html_table
 https://01luisrene.com/librerias-javascript-para-crear-galeria-de-fotos-y-sliders/
+http://api.jquery.com/html/
 
 :::::JQUERY
 https://www.w3schools.com/jquery/ajax_getjson.asp
