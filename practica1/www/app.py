@@ -62,11 +62,12 @@ def result():
 	if request.method == 'POST':
 		period = request.form['period']
 	else:
-		period = request.args.get('period')
+		if request.method == 'GET':
+			period = request.args.get('period')
 
 	return render_template('result.html', test=test,reload=period)
 
 if __name__ == "__main__":
-    app.run(host='198.', port=8888)
+    app.run(host='http://192.168.99.100', port=8888)
     #app.run(host='http://localhost', port=8888)
 

@@ -21,7 +21,15 @@
     <link href="{{url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{url_for('static',filename='css/blog-home.css')}}"  rel="stylesheet" >
 
-	 {% if test %}
+		
+	{% if test %}
+	<script>
+		var period = {{ reload }}
+	</script>
+
+	{% endif %}
+
+	{% if test %}
     <script> 
 		$( document ).ready(function(){
 			
@@ -55,8 +63,10 @@
 	<script>
 		$( document ).ready(function(){
 
-			function reload(time){
-				var url = "http://192.168.99.100:8888/resul.html"
+			window.setInterval(reloadPage(10000), 10000);
+
+			function reloadPage(time){
+				var url = "http://192.168.99.100:8888/result.html";
 				//var url = window.location.href;    
 				
 				url += '?period=' + period;
@@ -65,7 +75,7 @@
 
 			}
 			
-		}
+		});
 
 	</script>
 
