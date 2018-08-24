@@ -2,6 +2,8 @@
 from flask import redirect, url_for, request, render_template, Flask
 from flask import jsonify
 from flask import json
+from database import Database
+from models import Samples
 
 app = Flask(__name__)
 
@@ -35,11 +37,15 @@ def result():
 		#  'name2': 'Potin'
 		#}
 
+		#"[{&#34;hum&#34;: 56.4, &#34;pre&#34;: 951.7, &#34;temp&#34;: 43.1, &#34;wind&#34;: 298.9}, {&#34;hum&#34;: 38, &#34;pre&#34;: 901, &#34;temp&#34;: 21, &#34;wind&#34;: 245}]"
+		
+		db=Database()
+		last_meas = db.get_last_sample()
+		average = db.get_average_sample()
+
 		test = [
-			{ "name" : "001","edad" : "21","nombre" : "Luis" },
-			{ "name" : "002","edad" : "25","nombre" : "Andres" },
-			{ "name" : "003","edad" : "34","nombre" : "Jose" },
-			{ "name" : "004","edad" : "29","nombre" : "Jesus" }
+			{ "temp" : average.temperature,"hum" : average.humidity,"pre" : average.pressure, "wind": average.windspeed},
+			{ "temp" : last_meas.temperature,"hum" : last_meas.humidity,"pre" : last_meas.pressure, "wind": last_meas.windspeed}
 		]
 		#test = [name=1,2,3,4,5,6]
 		test = json.dumps(test)
@@ -49,5 +55,5 @@ def result():
 
 
 if __name__ == "__main__":
-    app.run(host='192.168.99.100', port=8888)
+    app.run(host='http://localhost', port=8888)
 
