@@ -14,6 +14,7 @@ http://api.jquery.com/html/
 
 :::::JQUERY
 https://www.w3schools.com/jquery/ajax_getjson.asp
+https://stackoverflow.com/questions/13944100/jquery-javascript-check-if-var-exists
 
 :::::FLAKS JSON
 https://stackoverflow.com/questions/23038710/accessing-python-list-in-javascript-as-an-array/23039331#23039331
@@ -31,3 +32,5 @@ https://medium.com/@DezkaReid/contenedores-de-aplicaciones-explorando-docker-568
 https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-ii-templates
 https://sharepoint.stackexchange.com/questions/154809/reload-page-with-added-parameter
 https://www.tutorialspoint.com/flask/flask_http_methods.htm
+
+::::BOOTSTRAP
