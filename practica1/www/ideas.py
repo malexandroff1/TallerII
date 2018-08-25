@@ -49,3 +49,18 @@ if (period > 0){
 			//var refresh = $('meta[name=refresh]').attr("content",period);
 			$('head').append('<meta http-equiv="refresh" content=' + 100 + ' />');
 		}
+
+window.setInterval(reloadPage(10000), 10000);
+		
+alert(period);
+<meta http-equiv="refresh" content="30">
+
+function reloadPage(time){
+	var url = "http://192.168.99.100:8888/result.html";
+	var url = window.location.href;    
+	
+	url += '?period=' + period;
+	
+	window.location.href = url;
+
+}

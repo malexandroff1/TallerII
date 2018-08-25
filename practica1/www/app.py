@@ -28,8 +28,8 @@ def contact():
 def about():
     return render_template("about.html")
 
-@app.route('/result.html',methods = ['POST', 'GET'])
-def result():
+@app.route('/metrics.html',methods = ['POST', 'GET'])
+def metrics():
 	
 	pro.start_process()
 	average=Samples()
@@ -65,7 +65,7 @@ def result():
 		if request.method == 'GET':
 			period = request.args.get('period')
 
-	return render_template('result.html', test=test,reload=period)
+	return render_template('metrics.html', test=test,reload=period)
 
 if __name__ == "__main__":
     app.run(host='http://192.168.99.100', port=8888)

@@ -39,13 +39,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="result.html">Métricas</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="services">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contact">Contact</a>
+              <a class="nav-link" href="metrics.html">Métricas</a>
             </li>
           </ul>
         </div>
@@ -67,28 +61,28 @@
           <!-- Blog Post -->
           <div class="card mb-4">
             <div class="card-body">
-              <h2 class="card-title">Post Title</h2>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+              <h2 class="card-title">Simulación Microcontrolador</h2>
+              <p class="card-text">El siguiente proyecto es una simulación de acceso a valores de temperatura, humedad, presión atmosférica y velocidad del viento. Un proceso simula una placa con microcontrolador y sus correspondientes sensor/es que provee los valores de los sensores y se almacenados en una base de datos. Los valores se generan periódicamente.</p>
 
-              <h3>Elegir periodo de muestreo</h3><br>
+              <h3>Elegir el tiempo de refresco</h3><br>
 
-              <form class="form-inline" action = "http://192.168.99.100:8888/result.html" method="POST" name="add">      
-              <!-- <form class="form-inline" action = "http://localhost:8888/result.html" method="POST" name="add"> -->      
+              <form class="form-inline" action = "http://192.168.99.100:8888/metrics.html" method="GET" name="form-period">      
+              <!-- <form class="form-inline" action = "http://localhost:8888/metrics.html" method="GET" name="form-period"> -->      
 
                   <div class="row">
                     <div class="col">
                       <select class="form-control" style="width: 300px;" name='period' id="period">
-                          <option value='0'>Default</option>
+                          <option value='0'>Not refresh</option>
                           <option value='1'>1 segundo</option>
-                          <option value='2'>2 segundo</option>
-                          <option value='3'>5 segundo</option>
-                          <option value='4'>10 segundo</option>
-                          <option value='5'>30 segundo</option>
-                          <option value='6'>60 segundo</option>
+                          <option value='2'>2 segundos</option>
+                          <option value='5'>5 segundos</option>
+                          <option value='10'>10 segundos</option>
+                          <option value='20'>30 segundos</option>
+                          <option value='60'>60 segundos</option>
                         </select>
-                    </div>
+                    </div><br><br>
                     <div class="col">
-                      <button type="submit" id="btnsubmit" name="btnsubmit" class="btn btn-primary mb-2">Confirm Update</button>
+                      <button type="submit" class="btn btn-primary mb-2">Confirm Update</button>
                     </div>
                   </div>
                 </form>
@@ -97,8 +91,7 @@
 
             </div>
             <div class="card-footer text-muted">
-              Posted on January 1, 2017 by
-              <a href="#">Start Bootstrap</a>
+              GitHub:            <a href="https://github.com/malexandroff1/TallerII" target="_blank">Taller de Proyecto II</a>
             </div>
           </div>
 
@@ -110,9 +103,9 @@
         <div class="col-md-4">
             <!-- Side Widget -->
             <div class="card my-4">
-                <h5 class="card-header">Side Widget</h5>
+                <h5 class="card-header">Métricas</h5>
                 <div class="card-body">
-                  You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+                  <p>La sección de métricas no refresca los valores. Por defecto muestras los últimos valores ingresados al sistema.</p>
                 </div>
             </div>
         </div>

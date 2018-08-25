@@ -10,23 +10,23 @@
 
     <title>Trabajo Práctico I</title>
 
-    <!-- Bootstrap core CSS -->
-    <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
 
-    <!-- Custom styles for this template -->
-    <!-- <link href="css/blog-home.css" rel="stylesheet"> -->
+	<!-- Jquery Lib -->
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+
+	<!-- Bootstrap core CSS -->
     <link href="{{url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
     <link href="{{url_for('static',filename='css/blog-home.css')}}"  rel="stylesheet" >
 
 		
-	{% if test %}
+	{% if reload %}
 	<script>
 		var period = {{ reload }}
 	</script>
-
 	{% endif %}
 
 	{% if test %}
@@ -61,22 +61,9 @@
 	{% endif %}
 
 	<script>
-		$( document ).ready(function(){
-
-			window.setInterval(reloadPage(10000), 10000);
-
-			function reloadPage(time){
-				var url = "http://192.168.99.100:8888/result.html";
-				//var url = window.location.href;    
-				
-				url += '?period=' + period;
-				
-				window.location.href = url;
-
-			}
-			
-		});
-
+		if(typeof period !== 'undefined' && period != 0){
+			$('head').append('<meta http-equiv="refresh" content="' + period + '" />');
+		}
 	</script>
 
   </head>
@@ -98,13 +85,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="result.html">Métricas</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="services">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contact">Contact</a>
+              <a class="nav-link" href="metrics.html">Métricas</a>
             </li>
           </ul>
         </div>
@@ -117,7 +98,7 @@
       <div class="row">
 
         <!-- Blog Entries Column -->
-        <div class="col-md-8">
+        <div class="col-md-12">
 
           <h1 class="my-4">Microcontrolador
             <small>Adquisición de datos.</small>
@@ -156,7 +137,7 @@
                 <h3>Promedios</h3><br>
 
                 <table class="table">
-                  <thead class="thead-dark">
+                  <thead>
                     <tr>
                       <th scope="col">-</th>
                       <th scope="col">Medida</th>
@@ -188,8 +169,7 @@
                 </table>
             </div>
             <div class="card-footer text-muted">
-              Posted on January 1, 2017 by
-              <a href="#">Start Bootstrap</a>
+              GitHub:            <a href="https://github.com/malexandroff1/TallerII" target="_blank">Taller de Proyecto II</a>
             </div>
           </div>
 
@@ -197,21 +177,7 @@
 
         </div>
 
-        <!-- Sidebar Widgets Column -->
-        <div class="col-md-4">
-            <!-- Side Widget -->
-            <div class="card my-4">
-                <h5 class="card-header">Side Widget</h5>
-                <div class="card-body">
-                  You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
-                </div>
-            </div>
-        </div>
-
-
-
-          
-
+       
         </div>
 
       </div>
