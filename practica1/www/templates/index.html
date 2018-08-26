@@ -1,133 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+	<head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
 
-    <title>Trabajo Práctico I</title>
-
-
-    <!-- Bootstrap core CSS -->
-    <link href="{{url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="{{url_for('static',filename='css/blog-home.css')}}"  rel="stylesheet" >
-
-  </head>
-
-  <body>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">Trabajo Práctico I</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="index2">Home
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="metrics.html">Métricas</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Page Content -->
-    <div class="container">
-
-      <div class="row">
-
-        <!-- Blog Entries Column -->
-        <div class="col-md-8">
-
-          <h1 class="my-4">Microcontrolador
-            <small>Adquisición de datos.</small>
-          </h1>
-
-          <!-- Blog Post -->
-          <div class="card mb-4">
-            <div class="card-body">
-              <h2 class="card-title">Simulación Microcontrolador</h2>
-              <p class="card-text">El siguiente proyecto es una simulación de acceso a valores de temperatura, humedad, presión atmosférica y velocidad del viento. Un proceso simula una placa con microcontrolador y sus correspondientes sensor/es que provee los valores de los sensores y se almacenados en una base de datos. Los valores se generan periódicamente.</p>
-
-              <h3>Elegir el tiempo de refresco</h3><br>
-
-              <form class="form-inline" action = "http://192.168.99.100:8888/metrics.html" method="GET" name="form-period">      
-              <!-- <form class="form-inline" action = "http://localhost:8888/metrics.html" method="GET" name="form-period"> -->      
-
-                  <div class="row">
-                    <div class="col">
-                      <select class="form-control" style="width: 300px;" name='period' id="period">
-                          <option value='0'>Not refresh</option>
-                          <option value='1'>1 segundo</option>
-                          <option value='2'>2 segundos</option>
-                          <option value='5'>5 segundos</option>
-                          <option value='10'>10 segundos</option>
-                          <option value='20'>30 segundos</option>
-                          <option value='60'>60 segundos</option>
-                        </select>
-                    </div><br><br>
-                    <div class="col">
-                      <button type="submit" class="btn btn-primary mb-2">Confirm Update</button>
-                    </div>
-                  </div>
-                </form>
-
-                <br>
-
-            </div>
-            <div class="card-footer text-muted">
-              GitHub:            <a href="https://github.com/malexandroff1/TallerII" target="_blank">Taller de Proyecto II</a>
-            </div>
-          </div>
+		<title>Trabajo Práctico I</title>
 
 
+		<!-- Bootstrap core CSS -->
+		<link href="{{url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
 
-        </div>
+		<!-- Custom styles for this template -->
+		<link href="{{url_for('static',filename='css/blog-home.css')}}"  rel="stylesheet" >
 
-        <!-- Sidebar Widgets Column -->
-        <div class="col-md-4">
-            <!-- Side Widget -->
-            <div class="card my-4">
-                <h5 class="card-header">Métricas</h5>
-                <div class="card-body">
-                  <p>La sección de métricas no refresca los valores. Por defecto muestras los últimos valores ingresados al sistema.</p>
-                </div>
-            </div>
-        </div>
+	</head>
 
-        </div>
+	<body>
 
-      </div>
-      <!-- /.row -->
+		<!-- Navigation -->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+			<div class="container">
+				<a class="navbar-brand" href="#">Trabajo Práctico I</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarResponsive">
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item active">
+							<a class="nav-link" href="index2">Home
+								<span class="sr-only">(current)</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="metrics.html">Métricas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
 
-    </div>
-    <!-- /.container -->
+		<!-- Page Content -->
+		<div class="container">
 
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
-      </div>
-      <!-- /.container -->
-    </footer>
+			<div class="row">
 
-    <!-- Bootstrap core JavaScript -->
-    
-    <script src = "{{ url_for('static', filename = 'vendor/jquery/jquery.min.js') }}" ></script>
-    <script src = "{{ url_for('static', filename = 'vendor/bootstrap/js/bootstrap.bundle.min.js') }}" ></script>
-  
-  </body>
+				<!-- Blog Entries Column -->
+				<div class="col-md-8">
+
+					<h1 class="my-4">Microcontrolador
+						<small>Adquisición de datos.</small>
+					</h1>
+
+					<!-- Blog Post -->
+					<div class="card mb-4">
+						<div class="card-body">
+							<h2 class="card-title">Simulación Microcontrolador</h2>
+							<p class="card-text">El siguiente proyecto es una simulación de acceso a valores de temperatura, humedad, presión atmosférica y velocidad del viento. Un proceso simula una placa con microcontrolador y sus correspondientes sensor/es que provee los valores de los sensores y se almacenados en una base de datos. Los valores se generan periódicamente.</p>
+
+							<h3>Elegir el tiempo de refresco</h3><br>
+
+							<form class="form-inline" action = "http://192.168.99.100:8888/metrics.html" method="GET" name="form-period">      
+							<!-- <form class="form-inline" action = "http://localhost:8888/metrics.html" method="GET" name="form-period"> -->      
+
+									<div class="row">
+										<div class="col">
+											<select class="form-control" style="width: 300px;" name='period' id="period">
+													<option value='0'>Not refresh</option>
+													<option value='1'>1 segundo</option>
+													<option value='2'>2 segundos</option>
+													<option value='5'>5 segundos</option>
+													<option value='10'>10 segundos</option>
+													<option value='20'>30 segundos</option>
+													<option value='60'>60 segundos</option>
+												</select>
+										</div><br><br>
+										<div class="col">
+											<button type="submit" class="btn btn-primary mb-2">Confirm Update</button>
+										</div>
+									</div>
+								</form>
+
+								<br>
+
+						</div>
+						<div class="card-footer text-muted">
+							GitHub:            <a href="https://github.com/malexandroff1/TallerII" target="_blank">Taller de Proyecto II</a>
+						</div>
+					</div>
+				</div>
+
+				<!-- Sidebar Widgets Column -->
+				<div class="col-md-4">
+						<!-- Side Widget -->
+						<div class="card my-4">
+								<h5 class="card-header">Métricas</h5>
+								<div class="card-body">
+									<p>La sección de métricas no refresca los valores. Por defecto muestras los últimos valores ingresados al sistema.</p>
+								</div>
+						</div>
+				</div>
+
+				</div>
+
+			</div>
+			<!-- /.row -->
+
+		</div>
+		<!-- /.container -->
+
+		<!-- Footer -->
+		<footer class="py-5 bg-dark">
+			<div class="container">
+				<p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
+			</div>
+			<!-- /.container -->
+		</footer>
+
+		<!-- Bootstrap core JavaScript -->
+		
+		<script src = "{{ url_for('static', filename = 'vendor/jquery/jquery.min.js') }}" ></script>
+		<script src = "{{ url_for('static', filename = 'vendor/bootstrap/js/bootstrap.bundle.min.js') }}" ></script>
+	
+	</body>
 
 </html>
