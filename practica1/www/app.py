@@ -5,6 +5,8 @@ from flask import jsonify
 from flask import json
 from database import Database
 from models import Samples
+from getMetrics import _get_metrics 
+
 
 app = Flask(__name__)
 pro = Process()
@@ -17,46 +19,25 @@ def index():
 def index2():
 	return render_template('index.html')
 
+###*
+#Funcion que ejecuta el metodo _get_metrics()
+#Return: esta funcion devuelve un JSON con los datos obtenidos de la BBD
+#No cambia de pagina
+@app.route('/metricas',methods = ['POST', 'GET'])
+def metricas():
+	values = _get_metrics()
+	return values
+
+###*
+#
 @app.route('/metrics.html',methods = ['POST', 'GET'])
 def metrics():
-	
-	pro.start_process()
-	average=Samples()
-	last_meas=Samples()
-	
-	'''
-	db=Database()
-	last_meas = db.get_last_sample()
-	average = db.get_average_sample()
-	'''
 
 	###*
 	#Valor del periodo para recargar la pagina
 	period = 0
 
-	###*
-	#COMENTAR O BORRAR DE ACA
-	average.temperature = 56.4
-	average.humidity = 951.7
-	average.pressure = 43.1
-	average.windspeed = 298.9
-	last_meas.temperature = 21
-	last_meas.humidity = 38
-	last_meas.pressure = 901
-	last_meas.windspeed = 245
-	###*
-	#HASTA ACA
-
-	###*
-	#Se crea un conjunto clave,valor para luego crear el json
-	test = [
-		{ "temp" : average.temperature,"hum" : average.humidity,"pre" : average.pressure, "wind": average.windspeed},
-		{ "temp" : last_meas.temperature,"hum" : last_meas.humidity,"pre" : last_meas.pressure, "wind": last_meas.windspeed}
-	]
-	
-	###*
-	#Creamos el json
-	test = json.dumps(test)
+	values = _get_metrics()
 
 	###*
 	#Si el método del formulario es POST o GET se obtiene el periodo.
@@ -68,7 +49,7 @@ def metrics():
 
 	###*
 	#Redirigimos al sitio metrics.html y le enviamos las variables test y reload
-	return render_template('metrics.html', test=test,reload=period)
+	return render_template('metrics.html', test=values,reload=period)
 
 ###*
 #Si se ejecuta este archivo el main se toma en cuenta, sino no.

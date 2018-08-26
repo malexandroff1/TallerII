@@ -62,12 +62,50 @@
 
 	<script>
 		if(typeof period !== 'undefined' && period != 0){
-			$('head').append('<meta http-equiv="refresh" content="' + period + '" />');
+			//$('head').append('<meta http-equiv="refresh" content="' + period + '" />');
+			//
+			setInterval(getUsers, period);
+
+			function getUsers() {
+			  $.ajax({
+			  	//"{{ url_for('static', filename='getMetrics.py') }}"
+			    url: 'metricas',
+			    type: 'GET',    //passing data as post method
+	            dataType: 'json', // returning data as json
+			    success: function(result) {
+			    	//var counts = jQuery.parseJSON(json);
+			    	var a_temperature = result[0].temp;
+			    	var m_temperature = result[1].temp;
+					var a_humidity = result[0].hum;
+					var m_humidity = result[1].hum;
+					var a_pressure = result[0].pre;
+					var m_pressure = result[1].pre;
+					var a_windspeed = result[0].wind;
+					var m_windspeed = result[1].wind;
+					$("#at").html(a_temperature + " °C");
+					$("#ap").html(a_pressure + " Pa");
+					$("#aw").html(a_windspeed + " Km/h");
+					$("#ah").html(a_humidity + " %");
+					$("#mt").html(m_temperature + " °C");
+					$("#mp").html(m_pressure + " Pa");
+					$("#mw").html(m_windspeed + " Km/h");
+					$("#mh").html(m_humidity + " %");
+			    	//console.log("La temperatura es: " + a_temperature);
+			    },
+			    error: function() {
+			      console.log("No se ha podido obtener la información");
+			    }
+			  });
+			}
 		}
+
+		
+
+
 	</script>
 
 	</head>
-	
+
 	<body>
 		<!-- Navigation -->
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -108,7 +146,8 @@
 						<div class="card-body">
 							<h2 class="card-title">Contenido</h2>
 							<p class="card-text">Promedios y últimas medidas de los sensores del microcontrolador.</p>
-
+							
+							<div id="lista-usuarios"></div>
 
 							<h3>Medidas</h3><br>
 

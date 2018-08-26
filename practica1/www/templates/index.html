@@ -63,19 +63,19 @@
 
 							<h3>Elegir el tiempo de refresco</h3><br>
 
-							<form class="form-inline" action = "http://192.168.99.100:8888/metrics.html" method="GET" name="form-period">      
-							<!-- <form class="form-inline" action = "http://localhost:8888/metrics.html" method="GET" name="form-period"> -->      
+							<form class="form-inline" action = "http://192.168.99.100:8888/metrics.html" method="POST" name="form-period">      
+							<!-- <form class="form-inline" action = "http://localhost:8888/metrics.html" method="POST" name="form-period"> -->      
 
 									<div class="row">
 										<div class="col">
 											<select class="form-control" style="width: 300px;" name='period' id="period">
 													<option value='0'>Not refresh</option>
-													<option value='1'>1 segundo</option>
-													<option value='2'>2 segundos</option>
-													<option value='5'>5 segundos</option>
-													<option value='10'>10 segundos</option>
-													<option value='20'>30 segundos</option>
-													<option value='60'>60 segundos</option>
+													<option value='1000'>1 segundo</option>
+													<option value='2000'>2 segundos</option>
+													<option value='5000'>5 segundos</option>
+													<option value='10000'>10 segundos</option>
+													<option value='20000'>30 segundos</option>
+													<option value='60000'>60 segundos</option>
 												</select>
 										</div><br><br>
 										<div class="col">
