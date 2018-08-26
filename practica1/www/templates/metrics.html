@@ -35,26 +35,26 @@
 			
 				var counts = jQuery.parseJSON('{{ test|safe }}');
 			
-					var a_temperature,a_humidity,a_pressure,a_windspeed,m_temperature,m_humidity,m_pressure,m_windspeed;
+				var a_temperature,a_humidity,a_pressure,a_windspeed,m_temperature,m_humidity,m_pressure,m_windspeed;
 
 
-					a_temperature = counts[0].temp;
-					m_temperature = counts[1].temp;
-					a_humidity = counts[0].hum;
-					m_humidity = counts[1].hum;
-					a_pressure = counts[0].pre;
-					m_pressure = counts[1].pre;
-					a_windspeed = counts[0].wind;
-					m_windspeed = counts[1].wind;
+				a_temperature = counts[0].temp;
+				m_temperature = counts[1].temp;
+				a_humidity = counts[0].hum;
+				m_humidity = counts[1].hum;
+				a_pressure = counts[0].pre;
+				m_pressure = counts[1].pre;
+				a_windspeed = counts[0].wind;
+				m_windspeed = counts[1].wind;
 
-					$("#at").html(a_temperature + " °C");
-					$("#ap").html(a_pressure + " Pa");
-					$("#aw").html(a_windspeed + " Km/h");
-					$("#ah").html(a_humidity + " %");
-					$("#mt").html(m_temperature + " °C");
-					$("#mp").html(m_pressure + " Pa");
-					$("#mw").html(m_windspeed + " Km/h");
-					$("#mh").html(m_humidity + " %");
+				$("#at").html(a_temperature + " °C");
+				$("#ap").html(a_pressure + " Pa");
+				$("#aw").html(a_windspeed + " Km/h");
+				$("#ah").html(a_humidity + " %");
+				$("#mt").html(m_temperature + " °C");
+				$("#mp").html(m_pressure + " Pa");
+				$("#mw").html(m_windspeed + " Km/h");
+				$("#mh").html(m_humidity + " %");
 
 			 });
 	</script>

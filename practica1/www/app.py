@@ -11,11 +11,11 @@ pro = Process()
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+	return render_template('index.html')
 
 @app.route('/index2')
 def index2():
-    return render_template('index.html')
+	return render_template('index.html')
 
 @app.route('/metrics.html',methods = ['POST', 'GET'])
 def metrics():
@@ -73,6 +73,6 @@ def metrics():
 ###*
 #Si se ejecuta este archivo el main se toma en cuenta, sino no.
 if __name__ == "__main__":
-    app.run(host='http://192.168.99.100', port=8888)
-    #app.run(host='http://localhost', port=8888)
+	app.run(host='http://192.168.99.100', port=8888)
+	#app.run(host='http://localhost', port=8888)
 
