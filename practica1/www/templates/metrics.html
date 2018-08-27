@@ -10,7 +10,6 @@
 
 		<title>Trabajo Práctico I</title>
 
-
 		<!-- Jquery Lib -->
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -21,8 +20,8 @@
 
 		<!-- Custom styles for this template -->
 		<link href="{{url_for('static',filename='css/blog-home.css')}}"  rel="stylesheet" >
-
-	
+		<link href="{{url_for('static',filename='css/animate.css')}}"  rel="stylesheet" >
+		
 		<!-- Si existe la variable reload la asingo a una variable local de javascrip-->
 		{% if reload %}
 		<script>
@@ -63,53 +62,59 @@
 		{% endif %}
 
 		<script>
-			/**
-			 * [Si la variable exisste y es distinta de cero]
-			 */
-			if(typeof period !== 'undefined' && period != 0){
-				//$('head').append('<meta http-equiv="refresh" content="' + period + '" />');
-				
-				/**
-				 * Ejecuta la funcion getUsers cada period [segundos]
-				 */
-				setInterval(getUsers, period);
 
+			$( document ).ready(function(){
+
+			
 				/**
-				 * [getUsers ejecuta un ajax asincronico]
-				 * [obtiene el promedio y ultimas medidas y lo asigna a tags html]
+				 * [Si la variable exisste y es distinta de cero]
 				 */
-				function getUsers() {
-				  $.ajax({
-					//"{{ url_for('static', filename='getMetrics.py') }}"
-					url: 'metricas',
-					type: 'GET',    //passing data as post method
-					dataType: 'json', // returning data as json
-					success: function(result) {
-						//var counts = jQuery.parseJSON(json);
-						var a_temperature = result[0].temp;
-						var m_temperature = result[1].temp;
-						var a_humidity = result[0].hum;
-						var m_humidity = result[1].hum;
-						var a_pressure = result[0].pre;
-						var m_pressure = result[1].pre;
-						var a_windspeed = result[0].wind;
-						var m_windspeed = result[1].wind;
-						$("#at").html(a_temperature + " °C");
-						$("#ap").html(a_pressure + " Pa");
-						$("#aw").html(a_windspeed + " Km/h");
-						$("#ah").html(a_humidity + " %");
-						$("#mt").html(m_temperature + " °C");
-						$("#mp").html(m_pressure + " Pa");
-						$("#mw").html(m_windspeed + " Km/h");
-						$("#mh").html(m_humidity + " %");
-						//console.log("La temperatura es: " + a_temperature);
-					},
-					error: function() {
-					  console.log("ERROR !!!");
+				if(typeof period !== 'undefined' && period != 0){
+					//$('head').append('<meta http-equiv="refresh" content="' + period + '" />');
+					
+					/**
+					 * Ejecuta la funcion getUsers cada period [segundos]
+					 */
+					setInterval(getUsers, period);
+
+					/**
+					 * [getUsers ejecuta un ajax asincronico]
+					 * [obtiene el promedio y ultimas medidas y lo asigna a tags html]
+					 */
+					function getUsers() {
+					  $.ajax({
+						//"{{ url_for('static', filename='getMetrics.py') }}"
+						url: 'metricas',
+						type: 'GET',    //passing data as post method
+						dataType: 'json', // returning data as json
+						success: function(result) {
+							//var counts = jQuery.parseJSON(json);
+							var a_temperature = result[0].temp;
+							var m_temperature = result[1].temp;
+							var a_humidity = result[0].hum;
+							var m_humidity = result[1].hum;
+							var a_pressure = result[0].pre;
+							var m_pressure = result[1].pre;
+							var a_windspeed = result[0].wind;
+							var m_windspeed = result[1].wind;
+							
+							$("#at").html(a_temperature + " °C");
+							$("#ap").html(a_pressure + " Pa");
+							$("#aw").html(a_windspeed + " Km/h");
+							$("#ah").html(a_humidity + " %");
+							$("#mt").html(m_temperature + " °C");
+							$("#mp").html(m_pressure + " Pa");
+							$("#mw").html(m_windspeed + " Km/h");
+							$("#mh").html(m_humidity + " %");
+							//console.log("La temperatura es: " + a_temperature);   						
+						},
+						error: function() {
+						  console.log("ERROR !!!");
+						}
+					  });
 					}
-				  });
 				}
-			}
+			 });
 		</script>
 
 	</head>
@@ -230,7 +235,7 @@
 		<!-- Footer -->
 		<footer class="py-5 bg-dark">
 			<div class="container">
-				<p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
+				<p class="m-0 text-center text-white">GitHub: <a href="https://github.com/malexandroff1/TallerII" target="_blank">Taller de Proyecto II</a><</p>
 			</div>
 			<!-- /.container -->
 		</footer>
