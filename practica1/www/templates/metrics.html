@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 	<head>
 
@@ -11,77 +11,44 @@
 		<title>Trabajo Práctico I</title>
 
 
-	<!-- Jquery Lib -->
+		<!-- Jquery Lib -->
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 
-	<!-- Bootstrap core CSS -->
+		<!-- Bootstrap core CSS -->
 		<link href="{{url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
 
 		<!-- Custom styles for this template -->
 		<link href="{{url_for('static',filename='css/blog-home.css')}}"  rel="stylesheet" >
 
-		
-	{% if reload %}
-	<script>
-		var period = {{ reload }}
-	</script>
-	{% endif %}
+	
+		<!-- Si existe la variable reload la asingo a una variable local de javascrip-->
+		{% if reload %}
+		<script>
+			var period = {{ reload }}
+		</script>
+		{% endif %}
 
-	{% if test %}
-		<script> 
-		$( document ).ready(function(){
-			
-				var counts = jQuery.parseJSON('{{ test|safe }}');
-			
-				var a_temperature,a_humidity,a_pressure,a_windspeed,m_temperature,m_humidity,m_pressure,m_windspeed;
+		<!-- Si existe la variable test -->
+		{% if test %}
+			<script> 
+			$( document ).ready(function(){
+				
+					var counts = jQuery.parseJSON('{{ test|safe }}');
+				
+					var a_temperature,a_humidity,a_pressure,a_windspeed,m_temperature,m_humidity,m_pressure,m_windspeed;
 
 
-				a_temperature = counts[0].temp;
-				m_temperature = counts[1].temp;
-				a_humidity = counts[0].hum;
-				m_humidity = counts[1].hum;
-				a_pressure = counts[0].pre;
-				m_pressure = counts[1].pre;
-				a_windspeed = counts[0].wind;
-				m_windspeed = counts[1].wind;
+					a_temperature = counts[0].temp;
+					m_temperature = counts[1].temp;
+					a_humidity = counts[0].hum;
+					m_humidity = counts[1].hum;
+					a_pressure = counts[0].pre;
+					m_pressure = counts[1].pre;
+					a_windspeed = counts[0].wind;
+					m_windspeed = counts[1].wind;
 
-				$("#at").html(a_temperature + " °C");
-				$("#ap").html(a_pressure + " Pa");
-				$("#aw").html(a_windspeed + " Km/h");
-				$("#ah").html(a_humidity + " %");
-				$("#mt").html(m_temperature + " °C");
-				$("#mp").html(m_pressure + " Pa");
-				$("#mw").html(m_windspeed + " Km/h");
-				$("#mh").html(m_humidity + " %");
-
-			 });
-	</script>
-	{% endif %}
-
-	<script>
-		if(typeof period !== 'undefined' && period != 0){
-			//$('head').append('<meta http-equiv="refresh" content="' + period + '" />');
-			//
-			setInterval(getUsers, period);
-
-			function getUsers() {
-			  $.ajax({
-			  	//"{{ url_for('static', filename='getMetrics.py') }}"
-			    url: 'metricas',
-			    type: 'GET',    //passing data as post method
-	            dataType: 'json', // returning data as json
-			    success: function(result) {
-			    	//var counts = jQuery.parseJSON(json);
-			    	var a_temperature = result[0].temp;
-			    	var m_temperature = result[1].temp;
-					var a_humidity = result[0].hum;
-					var m_humidity = result[1].hum;
-					var a_pressure = result[0].pre;
-					var m_pressure = result[1].pre;
-					var a_windspeed = result[0].wind;
-					var m_windspeed = result[1].wind;
 					$("#at").html(a_temperature + " °C");
 					$("#ap").html(a_pressure + " Pa");
 					$("#aw").html(a_windspeed + " Km/h");
@@ -90,19 +57,60 @@
 					$("#mp").html(m_pressure + " Pa");
 					$("#mw").html(m_windspeed + " Km/h");
 					$("#mh").html(m_humidity + " %");
-			    	//console.log("La temperatura es: " + a_temperature);
-			    },
-			    error: function() {
-			      console.log("No se ha podido obtener la información");
-			    }
-			  });
+
+				 });
+		</script>
+		{% endif %}
+
+		<script>
+			/**
+			 * [Si la variable exisste y es distinta de cero]
+			 */
+			if(typeof period !== 'undefined' && period != 0){
+				//$('head').append('<meta http-equiv="refresh" content="' + period + '" />');
+				
+				/**
+				 * Ejecuta la funcion getUsers cada period [segundos]
+				 */
+				setInterval(getUsers, period);
+
+				/**
+				 * [getUsers ejecuta un ajax asincronico]
+				 * [obtiene el promedio y ultimas medidas y lo asigna a tags html]
+				 */
+				function getUsers() {
+				  $.ajax({
+					//"{{ url_for('static', filename='getMetrics.py') }}"
+					url: 'metricas',
+					type: 'GET',    //passing data as post method
+					dataType: 'json', // returning data as json
+					success: function(result) {
+						//var counts = jQuery.parseJSON(json);
+						var a_temperature = result[0].temp;
+						var m_temperature = result[1].temp;
+						var a_humidity = result[0].hum;
+						var m_humidity = result[1].hum;
+						var a_pressure = result[0].pre;
+						var m_pressure = result[1].pre;
+						var a_windspeed = result[0].wind;
+						var m_windspeed = result[1].wind;
+						$("#at").html(a_temperature + " °C");
+						$("#ap").html(a_pressure + " Pa");
+						$("#aw").html(a_windspeed + " Km/h");
+						$("#ah").html(a_humidity + " %");
+						$("#mt").html(m_temperature + " °C");
+						$("#mp").html(m_pressure + " Pa");
+						$("#mw").html(m_windspeed + " Km/h");
+						$("#mh").html(m_humidity + " %");
+						//console.log("La temperatura es: " + a_temperature);
+					},
+					error: function() {
+					  console.log("ERROR !!!");
+					}
+				  });
+				}
 			}
-		}
-
-		
-
-
-	</script>
+		</script>
 
 	</head>
 
