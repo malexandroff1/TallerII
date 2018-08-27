@@ -11,7 +11,7 @@ import json
 pro = Process()
 
 ###*
-#
+#Genera los objetos Samples y arma un JSON que se retorna al ejecutar la funcion.
 def _get_metrics():
 
 	pro.start_process()
