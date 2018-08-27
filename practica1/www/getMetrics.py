@@ -18,14 +18,15 @@ def _get_metrics():
 	average=Samples()
 	last_meas=Samples()
 	
-	'''
+	
 	db=Database()
 	last_meas = db.get_last_sample()
 	average = db.get_average_sample()
-	'''
-
-	###*
+	
+	
+	###
 	#COMENTAR O BORRAR DE ACA
+	'''
 	average.temperature = randint(0, 100)
 	average.humidity = randint(0, 100)
 	average.pressure = randint(900, 1024)
@@ -34,14 +35,16 @@ def _get_metrics():
 	last_meas.humidity = randint(0, 100)
 	last_meas.pressure = randint(900, 1024)
 	last_meas.windspeed = randint(25, 500)
+	'''
 	###*
 	#HASTA ACA
 
 	###*
 	#Se crea un conjunto clave,valor para luego crear el json
 	test = [
-		{ "temp" : average.temperature,"hum" : average.humidity,"pre" : average.pressure, "wind": average.windspeed},
-		{ "temp" : last_meas.temperature,"hum" : last_meas.humidity,"pre" : last_meas.pressure, "wind": last_meas.windspeed}
+		{ "temp" : last_meas.temperature,"hum" : last_meas.humidity,"pre" : last_meas.pressure, "wind": last_meas.windspeed},
+		{ "temp" : average.temperature,"hum" : average.humidity,"pre" : average.pressure, "wind": average.windspeed}
+		
 	]
 
 	###*
