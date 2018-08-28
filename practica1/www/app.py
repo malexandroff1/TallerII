@@ -63,6 +63,6 @@ def metrics():
 ###*
 #Si se ejecuta este archivo el main se toma en cuenta, sino no.
 if __name__ == "__main__":
-	app.run(host='http://192.168.99.100', port=8888)
-	#app.run(host='http://localhost', port=8888)
+	#app.run(host='http://192.168.99.100', port=8888)
+	app.run(host='http://localhost', port=8888)
 
