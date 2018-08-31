@@ -37,3 +37,11 @@ https://www.tutorialspoint.com/flask/flask_http_methods.htm
 
 ::::BOOTSTRAP
 https://getbootstrap.com/docs/4.1/content/tables/
+
+::::FORM VALIDATIONS
+https://web.itu.edu.tr/uyar/fad/forms.html
+http://www.openbookproject.net/thinkcs/python/english2e/ch09.html
+https://www.tutorialspoint.com/python/string_isdigit.htm
+
+::::FLASK TUTORIAL MUY BUENO
+https://overiq.com/flask/0.12/form-handling-in-flask/

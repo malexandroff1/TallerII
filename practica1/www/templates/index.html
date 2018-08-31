@@ -63,8 +63,8 @@
 
 							<h3>Elegir el tiempo de refresco</h3><br>
 
-							<!--<form class="form-inline" action = "http://192.168.99.100:8888/metrics.html" method="POST" name="form-period"> -->  
-							<form class="form-inline" action = "http://localhost:8888/metrics.html" method="POST" name="form-period">    
+							<form class="form-inline" action = "http://192.168.99.100:8888/metrics.html" method="POST" name="form-period">  
+							<!--<form class="form-inline" action = "http://localhost:8888/metrics.html" method="POST" name="form-period"> -->    
 
 									<div class="row">
 										<div class="col">
@@ -85,6 +85,15 @@
 								</form>
 
 								<br>
+
+								 {% if 'period' in form.errors %}
+								<div class="alert alert-danger" role="alert">
+								  <h4 class="alert-heading">Error</h4>
+								  <p>{{ form.errors['period'] }}</p>
+								  <hr>
+								  <p class="mb-0"></p>
+								</div>
+								{% endif %}
 
 						</div>
 						<div class="card-footer text-muted">
