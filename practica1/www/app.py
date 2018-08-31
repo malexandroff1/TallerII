@@ -79,8 +79,12 @@ def metrics():
 	#Si se envian parametros por la URL tambien se obtiene los datos
 	if request.method == 'POST':
 		valid = validate_movie_data(request.form)
+		###*
+		#Si no hay errores
 		if valid:
 			period = request.form['period']
+			###*
+			#Redirigimos al sitio metrics.html y le enviamos las variables values y period
 			return render_template('metrics.html', test=values, reload=period)
 		form = request.form
 		return render_template('index.html', form=form)
@@ -92,5 +96,3 @@ if __name__ == "__main__":
 	#app.run(host='http://192.168.99.100', port=8888)
 	app.run(host='http://localhost', port=8888)
 
-###*
-#Redirigimos al sitio metrics.html y le enviamos las variables values y period
