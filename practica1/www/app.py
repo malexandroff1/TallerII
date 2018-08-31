@@ -9,7 +9,11 @@ from getMetrics import _get_metrics
  
 numbers = [0 , 1000, 2000, 5000, 10000, 30000, 60000]
 
-
+###*
+#Validacion de los datos del formulario
+#@param formulario
+#@return form.error lisita de errores
+#@return la cantidad de errores
 def validate_movie_data(form):
     form.errors = {}
 
