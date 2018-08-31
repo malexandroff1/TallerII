@@ -7,12 +7,14 @@ from database import Database
 from models import Samples
 from getMetrics import _get_metrics 
  
+###*
+#Numeros posibles para el muestreo
 numbers = [0 , 1000, 2000, 5000, 10000, 30000, 60000]
 
 ###*
 #Validacion de los datos del formulario
 #@param formulario
-#@return form.error lisita de errores
+#@return form.error lista de errores
 #@return la cantidad de errores
 def validate_movie_data(form):
     form.errors = {}
