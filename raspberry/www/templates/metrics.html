@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+
+	<head>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>Trabajo Práctico I</title>
+
+		<!-- Jquery Lib -->
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+
+		<!-- Bootstrap core CSS -->
+		<link href="{{url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+		<link href="{{url_for('static',filename='css/blog-home.css')}}"  rel="stylesheet" >
+		
+		<!-- Si existe la variable reload la asingo a una variable local de javascrip-->
+		{% if reload %}
+		<script>
+			var period = {{ reload }}
+		</script>
+		{% endif %}
+
+		<!-- Si existe la variable test -->
+		{% if test %}
+			<script> 
+			$( document ).ready(function(){
+				
+					var counts = jQuery.parseJSON('{{ test|safe }}');
+				
+					var a_temperature,a_humidity,a_pressure,a_windspeed,m_temperature,m_humidity,m_pressure,m_windspeed;
+
+
+					a_temperature = counts[0].temp;
+					m_temperature = counts[1].temp;
+					a_humidity = counts[0].hum;
+					m_humidity = counts[1].hum;
+					a_pressure = counts[0].pre;
+					m_pressure = counts[1].pre;
+					a_windspeed = counts[0].wind;
+					m_windspeed = counts[1].wind;
+
+					$("#at").html(a_temperature + " °C");
+					$("#ap").html(a_pressure + " Pa");
+					$("#aw").html(a_windspeed + " Km/h");
+					$("#ah").html(a_humidity + " %");
+					$("#mt").html(m_temperature + " °C");
+					$("#mp").html(m_pressure + " Pa");
+					$("#mw").html(m_windspeed + " Km/h");
+					$("#mh").html(m_humidity + " %");
+
+				 });
+		</script>
+		{% endif %}
+
+		<script>
+
+			$( document ).ready(function(){
+
+			
+				/**
+				 * [Si la variable exisste y es distinta de cero]
+				 */
+				if(typeof period !== 'undefined' && period != 0){
+					//$('head').append('<meta http-equiv="refresh" content="' + period + '" />');
+					
+					/**
+					 * Ejecuta la funcion getUsers cada period [segundos]
+					 */
+					setInterval(getUsers, period);
+
+					/**
+					 * [getUsers ejecuta un ajax asincronico]
+					 * [obtiene el promedio y ultimas medidas y lo asigna a tags html]
+					 */
+					function getUsers() {
+					  $.ajax({
+						//"{{ url_for('static', filename='getMetrics.py') }}"
+						url: 'metricas',
+						type: 'GET',    //passing data as post method
+						dataType: 'json', // returning data as json
+						success: function(result) {
+							//var counts = jQuery.parseJSON(json);
+							var a_temperature = result[0].temp;
+							var m_temperature = result[1].temp;
+							var a_humidity = result[0].hum;
+							var m_humidity = result[1].hum;
+							var a_pressure = result[0].pre;
+							var m_pressure = result[1].pre;
+							var a_windspeed = result[0].wind;
+							var m_windspeed = result[1].wind;
+							
+							$("#at").html(a_temperature + " °C");
+							$("#ap").html(a_pressure + " Pa");
+							$("#aw").html(a_windspeed + " Km/h");
+							$("#ah").html(a_humidity + " %");
+							$("#mt").html(m_temperature + " °C");
+							$("#mp").html(m_pressure + " Pa");
+							$("#mw").html(m_windspeed + " Km/h");
+							$("#mh").html(m_humidity + " %");
+							//console.log("La temperatura es: " + a_temperature);   						
+						},
+						error: function() {
+						  console.log("ERROR !!!");
+						}
+					  });
+					}
+				}
+			 });
+		</script>
+
+	</head>
+
+	<body>
+		<!-- Navigation -->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+			<div class="container">
+				<a class="navbar-brand" href="#">Trabajo Práctico I</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarResponsive">
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item">
+							<a class="nav-link" href="index2">Home
+								<span class="sr-only">(current)</span>
+							</a>
+						</li>
+						<li class="nav-item active">
+							<a class="nav-link" href="metrics.html">Métricas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<!-- Page Content -->
+		<div class="container">
+
+			<div class="row">
+
+				<!-- Blog Entries Column -->
+				<div class="col-md-12">
+
+					<h1 class="my-4">Microcontrolador
+						<small>Adquisición de datos.</small>
+					</h1>
+
+					<!-- Blog Post -->
+					<div class="card mb-4">
+						<div class="card-body">
+							<h2 class="card-title">Contenido</h2>
+							<p class="card-text">Promedios y últimas medidas de los sensores del microcontrolador.</p>
+							
+							<div id="lista-usuarios"></div>
+
+							<h3>Medidas</h3><br>
+
+			<div class="table-responsive-xl">
+							<table class="table">
+									<thead>
+										<tr>
+											<th scope="col">#</th>
+											<th scope="col">Temperatura</th>
+											<th scope="col">Humedad</th>
+											<th scope="col">Presión</th>
+											<th scope="col">Velocidad del Viento</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th scope="row">1</th>
+											<td id="at"></td>
+											<td id="ah"></td>
+											<td id="ap"></td>
+											<td id="aw"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+								<h3>Promedios</h3><br>
+			<div class="table-responsive-xl">
+								<table class="table">
+									<thead>
+										<tr>
+											<th scope="col">-</th>
+											<th scope="col">Medida</th>
+											<th scope="col">Promedio</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th scope="row">-</th>
+											<td>Temperatura</td>
+											<td id="mt">0 [°C]</td>
+										</tr>
+										<tr>
+											<th scope="row">-</th>
+											<td>Humedad</td>
+											<td id="mh">75 [%]</td>
+										</tr>
+										<tr>
+											<th scope="row">-</th>
+											<td>Velocidad del Viento</td>
+											<td id="mw">100 [Km/h]</td>
+										</tr>
+										<tr>
+											<th scope="row">-</th>
+											<td>Presión</td>
+											<td id="mp">101900 [Pa]</td>
+										</tr>
+									</tbody>
+								</table>
+						 </div>
+						</div>
+						<div class="card-footer text-muted">
+							GitHub:            <a href="https://github.com/malexandroff1/TallerII" target="_blank">Taller de Proyecto II</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /.container -->
+
+		<!-- Footer -->
+		<footer class="py-5 bg-dark">
+			<div class="container">
+				<p class="m-0 text-center text-white">GitHub: <a href="https://github.com/malexandroff1/TallerII" target="_blank">Taller de Proyecto II</a><</p>
+			</div>
+			<!-- /.container -->
+		</footer>
+
+		<!-- Bootstrap core JavaScript -->
+		<script src = "{{ url_for('static', filename = 'vendor/jquery/jquery.min.js') }}" ></script>
+		<script src = "{{ url_for('static', filename = 'vendor/bootstrap/js/bootstrap.bundle.min.js') }}" ></script>
+	</body>
+</html>
