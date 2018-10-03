@@ -7,11 +7,26 @@ from database import Database
 from models import Samples
 from getMetrics import _get_metrics 
 from flask import make_response
-from handlerGPIO import trafficLIGHTS
- 
+import RPi.GPIO as GPIO
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+
 ###*
 #Numeros posibles para el muestreo NO TOCAR
 numbers = [0 , 1000, 2000, 5000, 10000, 30000, 60000]
+
+# Create a dictionary called pins to store the pin number, name, and pin state:
+pins = {
+   2 : {'name' : 'Control 1', 'state' : GPIO.LOW},
+   3 : {'name' : 'Control 2', 'state' : GPIO.LOW},
+   4 : {'name' : 'Control 3', 'state' : GPIO.LOW},
+   }
+
+# Set each pin as an output and make it low:
+for pin in pins:
+   GPIO.setup(pin, GPIO.OUT)
+   GPIO.output(pin, GPIO.LOW)
 
 ###*
 #NO TOCAR
@@ -33,12 +48,11 @@ pro = Process()
 #Cuando se ejecuta /index se redirige a la pagina index.html
 @app.route('/')
 def index():
-	form = {'period': ''}
 
 	#OBTENER EL UTILMO ESTADO
 	
 
-	return render_template('index.html', form=form)
+	return render_template('index.html', form=pins)
 
 @app.route('/index')
 def index2():
@@ -53,8 +67,13 @@ def controler():
 	if request.method == 'POST':
 		valid = validate_form(request.form)
 		if valid:
-			led = request.form['led']
-			state = request.form['state']
+            led = int(request.form['led'])
+            state = request.form['state']
+                if state == 'ON':
+                    GPIO.output(led, GPIO.HIGH)
+                else:
+                    GPIO.output(led, GPIO.LOW)
+
 			return json.dumps({'led': led, 'state' : state})
 		form = request.form
 		return render_template('index.html', form=form)

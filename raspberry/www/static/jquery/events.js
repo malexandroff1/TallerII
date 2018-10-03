@@ -43,7 +43,7 @@ $( document ).ready(function(){
 			}
 		}
 		$(this).html(STATES.properties[state_ctrl_1].name);
-		setLed(1,state_ctrl_1);
+		setLed(2,state_ctrl_1);
 		
 	});
 
@@ -70,7 +70,7 @@ $( document ).ready(function(){
 			}
 		}
 		$(this).html(STATES.properties[state_ctrl_2].name);
-		setLed(2,state_ctrl_2);
+		setLed(3,state_ctrl_2);
 		
 	});
 
@@ -96,7 +96,7 @@ $( document ).ready(function(){
 			}
 		}
 		$(this).html(STATES.properties[state_ctrl_3].name);
-		setLed(3,state_ctrl_3);
+		setLed(4,state_ctrl_3);
 		
 	});
 
@@ -111,7 +111,7 @@ $( document ).ready(function(){
 			//var status = result[0].status;
 			//$("#mh").html(m_humidity + " %");
 			//console.log("El estado es: " + status);
-			//console.log(result);    						
+			console.log(result);    						
 		},
 		error: function() {
 		  console.log("ERROR !!!");
