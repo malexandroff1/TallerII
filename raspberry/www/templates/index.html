@@ -8,14 +8,34 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 
-		<title>Trabajo Práctico I</title>
+		<title>Domótica Aplicada con Raspberry/Orange Pi</title>
 
+		<!-- Jquery Lib -->
+		<script src="{{url_for('static',filename='jquery/3.3.1/jquery-3.3.1.min.js')}}"></script>
 
 		<!-- Bootstrap core CSS -->
 		<link href="{{url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
 
 		<!-- Custom styles for this template -->
 		<link href="{{url_for('static',filename='css/blog-home.css')}}"  rel="stylesheet" >
+
+		
+		<script src="{{url_for('static',filename='jquery/events.js')}}"></script>
+
+		<!-- <script>
+				/**
+				 * [Si la variable exisste y es distinta de cero]
+				 */
+				if(typeof period !== 'undefined' && period != 0){
+					//$('head').append('<meta http-equiv="refresh" content="' + period + '" />');
+					
+					/**
+					 * Ejecuta la funcion getUsers cada period [segundos]
+					 */
+					
+					//setInterval(getUsers, period);
+
+		</script>-->
 
 	</head>
 
@@ -24,19 +44,16 @@
 		<!-- Navigation -->
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 			<div class="container">
-				<a class="navbar-brand" href="#">Trabajo Práctico I</a>
+				<a class="navbar-brand" href="#">Domótica Aplicada con Raspberry/Orange Pi</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarResponsive">
 					<ul class="navbar-nav ml-auto">
 						<li class="nav-item active">
-							<a class="nav-link" href="index2">Home
+							<a class="nav-link" href="index">Home
 								<span class="sr-only">(current)</span>
 							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="metrics.html">Métricas</a>
 						</li>
 					</ul>
 				</div>
@@ -49,51 +66,73 @@
 			<div class="row">
 
 				<!-- Blog Entries Column -->
-				<div class="col-md-8">
+				<div class="col-md-12">
 
-					<h1 class="my-4">Microcontrolador
-						<small>Adquisición de datos.</small>
+					<h1 class="my-4">Raspberry/Orange Pi
+						<small>Servidor</small>
 					</h1>
 
 					<!-- Blog Post -->
 					<div class="card mb-4">
 						<div class="card-body">
-							<h2 class="card-title">Simulación Microcontrolador</h2>
-							<p class="card-text">El siguiente proyecto es una simulación de acceso a valores de temperatura, humedad, presión atmosférica y velocidad del viento. Un proceso simula una placa con microcontrolador y sus correspondientes sensor/es que provee los valores de los sensores y se almacenados en una base de datos. Los valores se generan periódicamente.</p>
+							<h2 class="card-title">Explicación</h2>
+							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+							proident, sunt in culpa qui officia deserunt mollit anim id est laborum..</p>
 
-							<h3>Elegir el tiempo de refresco</h3><br>
+							<h3>Panel de Control</h3><br>
+							<div class="table-responsive-xl">
+								<table class="table">
+									<thead>
+										<tr>
+											<th scope="col">-</th>
+											<th scope="col">Controladore</th>
+											<th scope="col">Acción</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th scope="row">-</th>
+											<td>Control 1</td>
+											<td id="mt"><button type="button-ctr-1" id="button-ctr-1" class="btn btn-warning btn-lg"></button></td>
+										</tr>
+										<tr>
+											<th scope="row">-</th>
+											<td>Control 2</td>
+											<td id="mh"><button type="button-ctr-2" id="button-ctr-2" class="btn btn-lg btn-warning"></button></td>
+										</tr>
+										<tr>
+											<th scope="row">-</th>
+											<td>Control 3</td>
+											<td id="mw"><button type="button-ctr-3" id="button-ctr-3" class="btn btn-lg btn-warning"></button></td>
+										</tr>
+									</tbody>
+								</table>
 
-							<!-- <form class="form-inline" action = "http://192.168.99.100:8888/metrics.html" method="POST" name="form-period">  -->
-							<form class="form-inline" action = "http://localhost:8888/metrics.html" method="POST" name="form-period">   
-
-									<div class="row">
-										<div class="col">
-											<select class="form-control" style="width: 300px;" name='period' id="period">
-													<option value='0'>Not refresh</option>
-													<option value='1000'>1 segundo</option>
-													<option value='2000'>2 segundos</option>
-													<option value='5000'>5 segundos</option>
-													<option value='10000'>10 segundos</option>
-													<option value='20000'>30 segundos</option>
-													<option value='60000'>60 segundos</option>
-												</select>
-										</div><br><br>
-										<div class="col">
-											<button type="submit" class="btn btn-primary mb-2">Confirm Update</button>
-										</div>
-									</div>
-								</form>
-
+							 
 								<br>
 
-								 {% if 'period' in form.errors %}
+								{% if 'led' in form.errors %}
 								<div class="alert alert-danger" role="alert">
 								  <h4 class="alert-heading">Error</h4>
-								  <p>{{ form.errors['period'] }}</p>
+								  <p>{{ form.errors['led'] }}</p>
 								  <hr>
 								  <p class="mb-0"></p>
 								</div>
 								{% endif %}
+								
+								{% if 'state' in form.errors %}
+								<div class="alert alert-danger" role="alert">
+								  <h4 class="alert-heading">Error</h4>
+								  <p>{{ form.errors['state'] }}</p>
+								  <hr>
+								  <p class="mb-0"></p>
+								</div>
+								{% endif %}
+
 
 						</div>
 						<div class="card-footer text-muted">
@@ -102,16 +141,6 @@
 					</div>
 				</div>
 
-				<!-- Sidebar Widgets Column -->
-				<div class="col-md-4">
-						<!-- Side Widget -->
-						<div class="card my-4">
-								<h5 class="card-header">Métricas</h5>
-								<div class="card-body">
-									<p>La sección de métricas no refresca los valores. Por defecto muestras los últimos valores ingresados al sistema.</p>
-								</div>
-						</div>
-				</div>
 			</div>
 			<!-- /.row -->
 		</div>

@@ -6,31 +6,22 @@ from flask import json
 from database import Database
 from models import Samples
 from getMetrics import _get_metrics 
+from flask import make_response
+from handlerGPIO import trafficLIGHTS
  
 ###*
-#Numeros posibles para el muestreo
+#Numeros posibles para el muestreo NO TOCAR
 numbers = [0 , 1000, 2000, 5000, 10000, 30000, 60000]
 
 ###*
-#Validacion de los datos del formulario
-#@param formulario
-#@return form.error lista de errores
-#@return la cantidad de errores
+#NO TOCAR
 def validate_form(form):
     form.errors = {}
+    if len(form['led'].strip()) == 0:
+        form.errors['led'] = 'Led can not be blank.'
 
-    if len(form['period'].strip()) == 0:
-        form.errors['period'] = 'Period can not be blank.'
-    elif not form['period'].isdigit():
-    	form.errors['period'] = 'Period can not be string.' 
-    else:
-    	ok = False
-    	array_length = len(numbers)
-    	for i in range(array_length):
-    		if numbers[i] == int(form['period']):
-    			ok = True
-    	if not ok :
-    		form.errors['period'] = 'Period can be between correct values.'
+    if len(form['state'].strip()) == 0:
+    	form.errors['state'] = 'State can not be blank.'
 
     return len(form.errors) == 0
 
@@ -43,58 +34,35 @@ pro = Process()
 @app.route('/')
 def index():
 	form = {'period': ''}
+
+	#OBTENER EL UTILMO ESTADO
+	
+
 	return render_template('index.html', form=form)
 
-###*
-#Cuando se ejecuta /index2 se regirige a la pagina index.html
-@app.route('/index2')
-def index2():
-	form = {'period': ''}
-	return render_template('index.html', form=form)
 
-###*
-#Funcion que ejecuta el metodo _get_metrics()
-#Return: esta funcion devuelve un JSON con los datos obtenidos de la BBD
-#No cambia de pagina
-@app.route('/metricas',methods = ['POST', 'GET'])
-def metricas():
-	values = _get_metrics()
-	return values
-
-###*
-#Cuando se ejecuta metrics.html se redirige a la página metrics.html
-#Si se envian datos a este sitio por POST o GET la pagina metrics.html
-#es la encargada de recibirlos.
-@app.route('/metrics.html',methods = ['POST', 'GET'])
-def metrics():
-
-	###*
-	#Valor del periodo para recargar la pagina
-	period = 0
-
-	###*
-	#Obtiene un JSON con los promedios y ultimas medidas.
-	values = _get_metrics()
-
-	###*
-	#Si el método del formulario es POST o GET se obtiene el periodo.
-	#Si se envian parametros por la URL tambien se obtiene los datos
+@app.route('/controler',methods = ['POST'])
+def controler():
 	if request.method == 'POST':
 		valid = validate_form(request.form)
-		###*
-		#Si no hay errores
 		if valid:
-			period = request.form['period']
-			###*
-			#Redirigimos al sitio metrics.html y le enviamos las variables values y period
-			return render_template('metrics.html', test=values, reload=period)
+			led = request.form['led']
+			state = request.form['state']
+			return json.dumps({'led': led, 'state' : state})
 		form = request.form
 		return render_template('index.html', form=form)
-	return render_template('metrics.html', test=values, reload=period)
+
+	#HACER LLAMADA A LA RASPBERRY
+	#FUNCIONES
+	
+
+
+	#return json.dumps({'led': led, 'state' : state})
+
 
 ###*
 #Si se ejecuta este archivo el main se toma en cuenta, sino no.
 if __name__ == "__main__":
-	#app.run(host='http://192.168.99.100', port=8888)
-	app.run(host='http://localhost', port=8888)
+	app.run(host='http://192.168.99.100', port=8888)
+	#app.run(host='http://localhost', port=8888)
 

@@ -14,19 +14,26 @@ pro = Process()
 #Genera los objetos Samples y arma un JSON que se retorna al ejecutar la funcion.
 def _get_metrics():
 
-	pro.start_process()
 	average=Samples()
 	last_meas=Samples()
+	
+	###
+	#COMENTAR O BORRAR DE ACA
+	'''
+	pro.start_process()
+	
 	
 	
 	db=Database()
 	last_meas = db.get_last_sample()
 	average = db.get_average_sample()
-	
-	
-	###
-	#COMENTAR O BORRAR DE ACA
+
 	'''
+	###*
+	#HASTA ACA
+	
+	
+	
 	average.temperature = randint(0, 100)
 	average.humidity = randint(0, 100)
 	average.pressure = randint(900, 1024)
@@ -35,9 +42,7 @@ def _get_metrics():
 	last_meas.humidity = randint(0, 100)
 	last_meas.pressure = randint(900, 1024)
 	last_meas.windspeed = randint(25, 500)
-	'''
-	###*
-	#HASTA ACA
+	
 
 	###*
 	#Se crea un conjunto clave,valor para luego crear el json
