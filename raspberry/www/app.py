@@ -40,6 +40,13 @@ def index():
 
 	return render_template('index.html', form=form)
 
+@app.route('/index')
+def index2():
+	form = {'period': ''}
+
+	#OBTENER EL UTILMO ESTADO
+	
+	return render_template('index.html', form=form)
 
 @app.route('/controler',methods = ['POST'])
 def controler():
