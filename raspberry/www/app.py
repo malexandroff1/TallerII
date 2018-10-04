@@ -1,29 +1,19 @@
 # Imports
-from aux_pro import Process
 from flask import redirect, url_for, request, render_template, Flask
 from flask import jsonify
 from flask import json
-from database import Database
-from models import Samples
-from getMetrics import _get_metrics 
 from flask import make_response
-<<<<<<< HEAD
 from flask import session
 import ConfigParser
 import RPi.GPIO as GPIO
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
-pro = Process()
-
 
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
-###*
-#Numeros posibles para el muestreo NO TOCAR
-numbers = [0 , 1000, 2000, 5000, 10000, 30000, 60000]
 
 # Create a dictionary called pins to store the pin number, name, and pin state:
 pins = {
