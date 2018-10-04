@@ -1,5 +1,8 @@
 # Imports
+<<<<<<< HEAD
 import os
+=======
+>>>>>>> ee59fc2ca79da9f9d3458ab8696892131dfbcb60
 from flask import redirect, url_for, request, render_template, Flask
 from flask import jsonify
 from flask import json
@@ -10,7 +13,10 @@ import RPi.GPIO as GPIO
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+<<<<<<< HEAD
 
+=======
+>>>>>>> ee59fc2ca79da9f9d3458ab8696892131dfbcb60
 
 directory_config = './'
 
@@ -26,8 +32,11 @@ password = config.get('sessions','password')
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
+<<<<<<< HEAD
 user = 'admin'
 password = 'admin'
+=======
+>>>>>>> ee59fc2ca79da9f9d3458ab8696892131dfbcb60
 
 # Create a dictionary called pins to store the pin number, name, and pin state:
 pins = {
