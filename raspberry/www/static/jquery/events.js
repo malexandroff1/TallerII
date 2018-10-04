@@ -1,37 +1,5 @@
 $( document ).ready(function(){
 
-	var STATES = {
-	  ON: 1,
-	  OFF: 2,
-	  ON_OFF: 3,
-	  properties: {
-		1: {name: "ON", value: 1, code: "ON"},
-		2: {name: "OFF", value: 0, code: "OFF"},
-		3: {name: "ON/OFF", value: 1, code: "ON/OFF"}
-	  }
-	};
-
-	//var state_ctrl_1 = STATES.ON_OFF;
-	//var state_ctrl_2 = STATES.ON_OFF;
-	//var state_ctrl_3 = STATES.ON_OFF;
-
-	var state_ctrl = [STATES.ON_OFF,STATES.ON_OFF,STATES.ON_OFF]
-	var array_states = []
-
-	{% if pins %}
-		array_states.push({{ pins }})
-	
-
-		for (var i = array_states.length - 1; i >= 0; i--) {
-			if (array_states[i] == 'ON'){
-				state_ctrl[i] = STATES.ON;
-			}else{
-				state_control[i] = STATES.OFF;
-			} 
-		}
-
-	{% endif %}
-
 	$("#button-ctr-1").html(STATES.properties[state_ctrl[0].name);
 	$("#button-ctr-2").html(STATES.properties[state_ctrl[1]].name);
 	$("#button-ctr-3").html(STATES.properties[state_ctrl[2]].name);

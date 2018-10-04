@@ -19,23 +19,43 @@
 		<!-- Custom styles for this template -->
 		<link href="{{url_for('static',filename='css/blog-home.css')}}"  rel="stylesheet" >
 
-		
+
+		<script>
+			var STATES = {
+			  ON: 1,
+			  OFF: 2,
+			  ON_OFF: 3,
+			  properties: {
+				1: {name: "ON", value: 1, code: "ON"},
+				2: {name: "OFF", value: 0, code: "OFF"},
+				3: {name: "ON/OFF", value: 1, code: "ON/OFF"}
+			  }
+			};
+
+			//var state_ctrl_1 = STATES.ON_OFF;
+			//var state_ctrl_2 = STATES.ON_OFF;
+			//var state_ctrl_3 = STATES.ON_OFF;
+
+			var state_ctrl = [STATES.ON_OFF,STATES.ON_OFF,STATES.ON_OFF];
+			var array_states = [];
+
+			{% if pins %}
+				array_states.push({{ pins }});
+			
+
+				for (var i = array_states.length - 1; i >= 0; i--) {
+					if (array_states[i] == 'ON'){
+						state_ctrl[i] = STATES.ON;
+					}else{
+						state_control[i] = STATES.OFF;
+					} 
+				}
+
+			{% endif %}
+
+		</script>
+
 		<script src="{{url_for('static',filename='jquery/events.js')}}"></script>
-
-		<!-- <script>
-				/**
-				 * [Si la variable exisste y es distinta de cero]
-				 */
-				if(typeof period !== 'undefined' && period != 0){
-					//$('head').append('<meta http-equiv="refresh" content="' + period + '" />');
-					
-					/**
-					 * Ejecuta la funcion getUsers cada period [segundos]
-					 */
-					
-					//setInterval(getUsers, period);
-
-		</script>-->
 
 	</head>
 
