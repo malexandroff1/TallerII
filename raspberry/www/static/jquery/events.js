@@ -43,7 +43,7 @@ $( document ).ready(function(){
 			}
 		}
 		$(this).html(STATES.properties[state_ctrl_1].name);
-		setLed(10,state_ctrl_1);
+		setLed(2,state_ctrl_1);
 		
 	});
 

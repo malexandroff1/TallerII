@@ -7,14 +7,16 @@ from database import Database
 from models import Samples
 from getMetrics import _get_metrics 
  
+###*
+#Numeros posibles para el muestreo
 numbers = [0 , 1000, 2000, 5000, 10000, 30000, 60000]
 
 ###*
 #Validacion de los datos del formulario
 #@param formulario
-#@return form.error lisita de errores
+#@return form.error lista de errores
 #@return la cantidad de errores
-def validate_movie_data(form):
+def validate_form(form):
     form.errors = {}
 
     if len(form['period'].strip()) == 0:
@@ -78,7 +80,7 @@ def metrics():
 	#Si el método del formulario es POST o GET se obtiene el periodo.
 	#Si se envian parametros por la URL tambien se obtiene los datos
 	if request.method == 'POST':
-		valid = validate_movie_data(request.form)
+		valid = validate_form(request.form)
 		###*
 		#Si no hay errores
 		if valid:

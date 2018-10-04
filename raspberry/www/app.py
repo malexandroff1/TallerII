@@ -7,6 +7,7 @@ from database import Database
 from models import Samples
 from getMetrics import _get_metrics 
 from flask import make_response
+<<<<<<< HEAD
 from flask import session
 import ConfigParser
 import RPi.GPIO as GPIO
@@ -16,13 +17,13 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 pro = Process()
 
 
+
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 ###*
 #Numeros posibles para el muestreo NO TOCAR
 numbers = [0 , 1000, 2000, 5000, 10000, 30000, 60000]
-
 
 # Create a dictionary called pins to store the pin number, name, and pin state:
 pins = {
@@ -91,6 +92,7 @@ def validate_form(form):
     return len(form.errors) == 0
 
 
+
 ###*
 #Cuando se ejecuta /index se redirige a la pagina index.html
 @app.route('/')
@@ -144,5 +146,4 @@ if __name__ == "__main__":
 	password = ConfigSectionMap("session")['password']
 	app.run(debug=True)
 	#app.run(host='http://192.168.99.100', port=8888, debug=True)
-	#app.run(host='http://localhost', port=8888)
 
