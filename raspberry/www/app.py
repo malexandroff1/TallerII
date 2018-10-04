@@ -1,35 +1,23 @@
-# Imports
-from aux_pro import Process
 from flask import redirect, url_for, request, render_template, Flask
 from flask import jsonify
 from flask import json
-from database import Database
-from models import Samples
-from getMetrics import _get_metrics 
 from flask import make_response
-<<<<<<< HEAD
 from flask import session
 import ConfigParser
 import RPi.GPIO as GPIO
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
-pro = Process()
 
 
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
-###*
-#Numeros posibles para el muestreo NO TOCAR
-numbers = [0 , 1000, 2000, 5000, 10000, 30000, 60000]
-
-# Create a dictionary called pins to store the pin number, name, and pin state:
 pins = {
-   2 : {'name' : 'Control 1', 'state' : GPIO.LOW},
-   3 : {'name' : 'Control 2', 'state' : GPIO.LOW},
-   4 : {'name' : 'Control 3', 'state' : GPIO.LOW},
+   2 : {'name' : 'Control 1', 'state' : 'OFF'},
+   3 : {'name' : 'Control 2', 'state' : 'OFF'},
+   4 : {'name' : 'Control 3', 'state' : 'OFF'},
    }
 
 # Set each pin as an output and make it low:
@@ -58,7 +46,7 @@ def login():
 def panelControl():
 	if 'username' in session:
 		username = session['username']
-		return render_template('panel-control.html', form='',user=username)
+		return render_template('panel-control.html', form=pins,user=username)
 	errors = {'Error' : 'You are not logged.'}
 	return render_template('index.html', form=errors)
 
@@ -113,19 +101,13 @@ def controler():
 			
 			if state == 'ON':
 				GPIO.output(led, GPIO.HIGH)
+				pins[led]['state'] = 'ON'
 			else:
 				GPIO.output(led, GPIO.LOW)
-            
-			return json.dumps({'led': led, 'state' : state})
+            	pins[led]['state'] = 'OFF'
+			return json.dumps({'http': 200})
 		form = request.form
-		return render_template('index.html', form=form)
-
-	#HACER LLAMADA A LA RASPBERRY
-	#FUNCIONES
-	
-
-
-	#return json.dumps({'led': led, 'state' : state})
+		return render_template('error.html', form='')
 
 
 ###*
