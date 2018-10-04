@@ -5,36 +5,20 @@ from flask import jsonify
 from flask import json
 from flask import make_response
 from flask import session
-import configparser
-import RPi.GPIO as GPIO
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
-directory_config = './'
+user = 'admin'
+password = 'admin'
 
-path_config = directory_config + 'properties.cfg'
-
-config = configparser.ConfigParser() 
-config.read(path_config) 
-
-user = config.get('sessions', 'username')
-password = config.get('sessions','password')
-
-
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
 
 pins = {
-   2 : {'name' : 'Control 1', 'state' : 'OFF'},
+   2 : {'name' : 'Control 1', 'state' : 'ON'},
    3 : {'name' : 'Control 2', 'state' : 'OFF'},
-   4 : {'name' : 'Control 3', 'state' : 'OFF'},
-   }
+   4 : {'name' : 'Control 3', 'state' : 'OFF'}
+}
 
-# Set each pin as an output and make it low:
-for pin in pins:
-   GPIO.setup(pin, GPIO.OUT)
-   GPIO.output(pin, GPIO.LOW)
 
 @app.route('/logout')
 def logout():
@@ -109,13 +93,7 @@ def controler():
 		if valid:
 			led = int(request.form['led'])
 			state = request.form['state']
-			
-			if state == 'ON':
-				GPIO.output(led, GPIO.HIGH)
-				pins[led]['state'] = 'ON'
-			else:
-				GPIO.output(led, GPIO.LOW)
-            	pins[led]['state'] = 'OFF'
+
 			return json.dumps({'http': 200})
 		form = request.form
 		return render_template('error.html', form='')
