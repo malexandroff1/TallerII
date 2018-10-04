@@ -1,18 +1,5 @@
 $( document ).ready(function(){
 
-	var STATES = {
-	  ON: 1,
-	  OFF: 2,
-	  ON_OFF: 3,
-	  properties: {
-		1: {name: "ON", value: 1, code: "ON"},
-		2: {name: "OFF", value: 0, code: "OFF"},
-		3: {name: "ON/OFF", value: 1, code: "ON/OFF"}
-	  }
-	};
-
-	var state_ctrl = [STATES.ON_OFF,STATES.ON_OFF,STATES.ON_OFF];
-	
 	$("#button-ctr-1").html(STATES.properties[state_ctrl[0].name);
 	$("#button-ctr-2").html(STATES.properties[state_ctrl[1]].name);
 	$("#button-ctr-3").html(STATES.properties[state_ctrl[2]].name);
