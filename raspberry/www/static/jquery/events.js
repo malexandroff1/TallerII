@@ -11,92 +11,109 @@ $( document ).ready(function(){
 	  }
 	};
 
-	var state_ctrl_1 = STATES.ON_OFF;
-	var state_ctrl_2 = STATES.ON_OFF;
-	var state_ctrl_3 = STATES.ON_OFF;
+	//var state_ctrl_1 = STATES.ON_OFF;
+	//var state_ctrl_2 = STATES.ON_OFF;
+	//var state_ctrl_3 = STATES.ON_OFF;
 
-	$("#button-ctr-1").html(STATES.properties[state_ctrl_1].name);
-	$("#button-ctr-2").html(STATES.properties[state_ctrl_1].name);
-	$("#button-ctr-3").html(STATES.properties[state_ctrl_1].name);
+	var state_ctrl = [STATES.ON_OFF,STATES.ON_OFF,STATES.ON_OFF]
+	var array_states = []
+
+	{% if pins %}
+		array_states.push({{ pins }})
+	
+
+		for (var i = array_states.length - 1; i >= 0; i--) {
+			if (array_states[i] == 'ON'){
+				state_ctrl[i] = STATES.ON;
+			}else{
+				state_control[i] = STATES.OFF;
+			} 
+		}
+
+	{% endif %}
+
+	$("#button-ctr-1").html(STATES.properties[state_ctrl[0].name);
+	$("#button-ctr-2").html(STATES.properties[state_ctrl[1]].name);
+	$("#button-ctr-3").html(STATES.properties[state_ctrl[2]].name);
 
 
 	$( "#button-ctr-1" ).click(function() {
-		if (state_ctrl_1 == STATES.ON_OFF) {
+		if (state_ctrl[0] == STATES.ON_OFF) {
 			$(this).removeClass("btn-warning");
 			$(this).removeClass("btn-danger");
 			$(this).addClass("btn-success");
-			state_ctrl_1 = STATES.ON;
+			state_ctrl[0] = STATES.ON;
 		}else{
-			if (state_ctrl_1 == STATES.ON) {
+			if (state_ctrl[0]== STATES.ON) {
 				$(this).removeClass("btn-success");
 				$(this).removeClass("btn-warning");
 				$(this).addClass("btn-danger");
 				
-				state_ctrl_1 = STATES.OFF;
+				state_ctrl[0] = STATES.OFF;
 			}else{
-				if (state_ctrl_1 == STATES.OFF) {
+				if (state_ctrl[0] == STATES.OFF) {
 					$(this).removeClass("btn-danger");
 					$(this).removeClass("btn-warning");
 					$(this).addClass("btn-success");
-					state_ctrl_1 = STATES.ON;
+					state_ctrl[0] = STATES.ON;
 				}
 			}
 		}
-		$(this).html(STATES.properties[state_ctrl_1].name);
-		setLed(2,state_ctrl_1);
+		$(this).html(STATES.properties[state_ctrl[0]].name);
+		setLed(2,state_ctrl[0];
 		
 	});
 
 	$( "#button-ctr-2" ).click(function() {
-		if (state_ctrl_2 == STATES.ON_OFF) {
+		if (state_ctrl[0] == STATES.ON_OFF) {
 			$(this).removeClass("btn-warning");
 			$(this).removeClass("btn-danger");
 			$(this).addClass("btn-success");
-			state_ctrl_2 = STATES.ON;
+			state_ctrl[0] = STATES.ON;
 		}else{
-			if (state_ctrl_2 == STATES.ON) {
+			if (state_ctrl[0] == STATES.ON) {
 				$(this).removeClass("btn-success");
 				$(this).removeClass("btn-warning");
 				$(this).addClass("btn-danger");
 				
-				state_ctrl_2 = STATES.OFF;
+				state_ctrl[0] = STATES.OFF;
 			}else{
-				if (state_ctrl_2 == STATES.OFF) {
+				if (state_ctrl[0] == STATES.OFF) {
 					$(this).removeClass("btn-danger");
 					$(this).removeClass("btn-warning");
 					$(this).addClass("btn-success");
-					state_ctrl_2 = STATES.ON;
+					state_ctrl[0] = STATES.ON;
 				}
 			}
 		}
-		$(this).html(STATES.properties[state_ctrl_2].name);
-		setLed(3,state_ctrl_2);
+		$(this).html(STATES.properties[state_ctrl[0]].name);
+		setLed(3,state_ctrl[0]);
 		
 	});
 
 	$( "#button-ctr-3" ).click(function() {
-		if (state_ctrl_3 == STATES.ON_OFF) {
+		if (state_ctrl[0] == STATES.ON_OFF) {
 			$(this).removeClass("btn-warning");
 			$(this).removeClass("btn-danger");
 			$(this).addClass("btn-success");
-			state_ctrl_3 = STATES.ON;
+			state_ctrl[0] = STATES.ON;
 		}else{
-			if (state_ctrl_3 == STATES.ON) {
+			if (state_ctrl[0] == STATES.ON) {
 				$(this).removeClass("btn-success");
 				$(this).removeClass("btn-warning");
 				$(this).addClass("btn-danger");
-				state_ctrl_3 = STATES.OFF;
+				state_ctrl[0] = STATES.OFF;
 			}else{
-				if (state_ctrl_3 == STATES.OFF) {
+				if (state_ctrl[0] == STATES.OFF) {
 					$(this).removeClass("btn-danger");
 					$(this).removeClass("btn-warning");
 					$(this).addClass("btn-success");
-					state_ctrl_3 = STATES.ON;
+					state_ctrl[0] = STATES.ON;
 				}
 			}
 		}
-		$(this).html(STATES.properties[state_ctrl_3].name);
-		setLed(4,state_ctrl_3);
+		$(this).html(STATES.properties[state_ctrl[0]].name);
+		setLed(4,state_ctrl[0]);
 		
 	});
 
