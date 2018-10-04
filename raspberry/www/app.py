@@ -1,29 +1,33 @@
 # Imports
-from aux_pro import Process
+import os
 from flask import redirect, url_for, request, render_template, Flask
 from flask import jsonify
 from flask import json
-from database import Database
-from models import Samples
-from getMetrics import _get_metrics 
 from flask import make_response
-<<<<<<< HEAD
 from flask import session
-import ConfigParser
+import configparser
 import RPi.GPIO as GPIO
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
-pro = Process()
 
+
+directory_config = './'
+
+path_config = directory_config + 'properties.cfg'
+
+config = configparser.ConfigParser() 
+config.read(path_config) 
+
+user = config.get('sessions', 'username')
+password = config.get('sessions','password')
 
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
-###*
-#Numeros posibles para el muestreo NO TOCAR
-numbers = [0 , 1000, 2000, 5000, 10000, 30000, 60000]
+user = 'admin'
+password = 'admin'
 
 # Create a dictionary called pins to store the pin number, name, and pin state:
 pins = {
@@ -69,9 +73,9 @@ def validateFormLogin(form):
 		form.errors['username'] = 'Username can not be blank.'
 	elif form['username'].isdigit():
 		form.errors['username'] = 'Username can not be integer.' 
-	elif: user != form['username']:
+	elif user != form['username']:
 		form.errors['username'] = 'You not are register.'
-	elif: password != form['password']:
+	elif password != form['password']:
 		form.errors['password'] = 'Your password falied.'
 
 	if len(form['password'].strip()) == 0:
@@ -131,19 +135,7 @@ def controler():
 ###*
 #Si se ejecuta este archivo el main se toma en cuenta, sino no.
 if __name__ == "__main__":
-	directory_config = './'
 		
-	if not os.path.exists(directory_config):
-		logger_main.error('Error: Fail To Find Directory.')
-		exit()
-
-	path_config = directory_config + 'properties.cfg'
-
-	Config = ConfigParser.ConfigParser() 
-	Config.read(path_config) #ruta relativa /usr/lib 
-
-	user = ConfigSectionMap("sessions")['username']
-	password = ConfigSectionMap("session")['password']
-	app.run(debug=True)
+        app.run(debug=True)
 	#app.run(host='http://192.168.99.100', port=8888, debug=True)
 
