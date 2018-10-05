@@ -6,8 +6,8 @@ try:
     conn = sqlite3.connect('panel-control.db')
     print "Open database successfully"
 
-    conn.execute("INSERT INTO USERS (ID,USERNAME,PASSWORD) \
-      VALUES (1, 'admin', 'admin' )");
+    conn.execute("INSERT INTO PINS (ID,PIN,STATE) \
+      VALUES (1, 2, 'OFF' )");
 
     conn.commit()
 
