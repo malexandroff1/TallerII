@@ -7,11 +7,10 @@ try:
     print "Open database successfully"
 
     conn.execute("INSERT INTO PINS (ID,PIN,STATE) \
-      VALUES (1, 2, 'OFF' )");
-
+      VALUES (1, 2, 'OFF' )")
     conn.commit()
 
-    print "Records created successfully";
+    print "Records created successfully"
 
     conn.close()
 

@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import sqlite3
+import SQLiteCRUD
 
 try:
     conn = sqlite3.connect('panel-control.db')
@@ -10,7 +11,7 @@ try:
         (
             ID          INT         PRIMARY KEY     NOT NULL,
             USERNAME    CHAR(50)    NOT NULL,
-            PASSWORD    TEXT        NOT NULL
+            PASSWORD    CHAR(150)        NOT NULL
         );''')
 
     print "Table USERS created successfully"
@@ -22,6 +23,8 @@ try:
             PIN         INT         NOT NULL,
             STATE       CHAR(10)    NOT NULL
         );''')
+
+    print "Table PINS created successfully"
 
     conn.close()
 

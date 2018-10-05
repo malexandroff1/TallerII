@@ -1,16 +1,29 @@
-import datetime
+from sqlalchemy import Column, Integer, String
+from database import Base
 
-from sqlalchemy.schema import Column
-from sqlalchemy.types import Integer
-from sqlalchemy.ext.declarative import declarative_base
+class User(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    username = Column(String(50), unique=True)
+    password = Column(String(150), unique=True)
 
-Base = declarative_base()
+    def __init__(self, username=None, password=None):
+        self.username = username
+        self.password = password
 
-class Samples(Base):
-    __tablename__ = 'samples'
-    id=Column(Integer, primary_key=True)
-    temperature=Column('temperature', Integer)
-    humidity=Column('humidity', Integer)
-    pressure=Column('pressure', Integer)
-    windspeed=Column('windspeed', Integer)
+    def __repr__(self):
+        return self.username
+
+class Pin(Base):
+    __tablename__ = 'pins'
+    id = Column(Integer, primary_key=True)
+    pin = Column(Integer, unique=True)
+    state = Column(String(10), unique=True)
+
+    def __init__(self, pin=None, state=None):
+        self.pin = pin
+        self.state = state
+
+    def __repr__(self):
+        return self.state
 
