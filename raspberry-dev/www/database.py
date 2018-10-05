@@ -1,19 +1,21 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.orm import scoped_session, sessionmaker,Session
 from sqlalchemy.ext.declarative import declarative_base
-
+import models
+from sqlalchemy import update
+from sqlalchemy import desc
 
 class Database(object):
     Base = declarative_base()
+    session = None
 
     def __get_session(self):
         if self.session == None:
-            connection = '../database/panel-control.db'
-            engine = create_engine(connection,convert_unicode=True,echo=True)
-            connection = engine.connect()
-            Session = sessionmaker(bind=engine)
+            url_sqlite = 'sqlite:///../database/panel-control.db'
+            engine = create_engine(url_sqlite,convert_unicode=True,echo=True)
+            Session = scoped_session(sessionmaker(autocommit=False,autoflush=True,bind=engine))
             self.session = Session()
-            self.Base.metadata.create_all(engine)
+            self.Base.metadata.create_all(engine)            
         return self.session
 
     def insert_user(self, User):
@@ -23,8 +25,9 @@ class Database(object):
         session.close()
 
     def update_password(self,User):
-        session=self.__get_session()
-        query =  session.query.filter_by(username=User.username).update(dict(password= User.password))
+        session = self.__get_session()
+        user = session.query(models.User).filter(models.User.username == User.username).first()
+        user.password = User.password
         session.commit()
         session.close()
 
@@ -36,7 +39,7 @@ class Database(object):
 
     def update_pin(self, Pin):
         session=self.__get_session()
-        query =  session.query.filter_by(pin=Pin.pin).update(dict(state= Pin.state))
+        query =  session.query.filter(pin=Pin.pin).update(dict(state= Pin.state))
         session.commit()
         session.close()
 
@@ -45,3 +48,10 @@ class Database(object):
         query =  session.query(Pin).filter(pin=Pin.pin).delete(synchronize_session=False)
         session.commit()
         session.close()
+    def get_user(self, User):
+        session = self.__get_session()
+        query = session.query(models.User).filter(models.User.username == User.username)
+        user = models.User()
+        user = query.first()
+        session.close()
+        return user

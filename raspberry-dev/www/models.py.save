@@ -1,12 +1,8 @@
 from sqlalchemy import Column, Integer, String
-import database
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
-
+from database import Base
 
 class User(Base):
-    __tablename__ = 'users'
+    __tablename__ = 'USERS'
     id = Column(Integer, primary_key=True)
     username = Column(String(50), unique=True)
     password = Column(String(150), unique=True)
@@ -19,7 +15,8 @@ class User(Base):
         return self.username
 
 class Pin(Base):
-    __tablename__ = 'pins'
+    __tablename__ = '
+'
     id = Column(Integer, primary_key=True)
     pin = Column(Integer, unique=True)
     state = Column(String(10), unique=True)

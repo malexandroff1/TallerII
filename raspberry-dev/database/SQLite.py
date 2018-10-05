@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 import sqlite3
-import SQLiteCRUD
 
 try:
     conn = sqlite3.connect('panel-control.db')
@@ -9,7 +8,7 @@ try:
 
     conn.execute('''CREATE TABLE USERS
         (
-            ID          INT         PRIMARY KEY     NOT NULL,
+            ID          INTEGER         PRIMARY KEY     AUTOINCREMENT,
             USERNAME    CHAR(50)    NOT NULL,
             PASSWORD    CHAR(150)        NOT NULL
         );''')
@@ -19,7 +18,7 @@ try:
 
     conn.execute('''CREATE TABLE PINS
         (
-            ID          INT         PRIMARY KEY     NOT NULL,
+            ID          INTEGER         PRIMARY KEY     AUTOINCREMENT,
             PIN         INT         NOT NULL,
             STATE       CHAR(10)    NOT NULL
         );''')
