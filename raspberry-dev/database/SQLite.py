@@ -3,10 +3,10 @@
 import sqlite3
 
 try:
-    conn = sqlite3.connect('test.db')
+    conn = sqlite3.connect('users.db')
     print "Open database successfully"
 
-    conn.execute('''CREATE TABLE COMPANY
+    conn.execute('''CREATE TABLE USERS
         (
             ID          INT         PRIMARY KEY     NOT NULL,
             USERNAME    CHAR(50)    NOT NULL,
