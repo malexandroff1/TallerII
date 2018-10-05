@@ -19,6 +19,55 @@
 		<!-- Custom styles for this template -->
 		<link href="{{url_for('static',filename='css/blog-home.css')}}"  rel="stylesheet" >
 
+		<script>
+			var STATES = {
+			  ON: 2,
+			  OFF: 3,
+			  ON_OFF: 4,
+			  properties: {
+				2: {name: "ON", value: 1, code: "ON"},
+				3: {name: "OFF", value: 0, code: "OFF"},
+				4: {name: "ON/OFF", value: 1, code: "ON/OFF"}
+			  }
+			};
+
+			var state_ctrl = {
+				2 : STATES.ON_OFF,
+				3 : STATES.ON_OFF,
+				4 : STATES.ON_OFF
+			};
+
+			var old_state = []
+
+			var pines = [];
+
+			{% if form %}
+				pines.push({{ form|safe }});
+
+				$.each( pines, function( index, pin ){
+				    var  i = 0;
+
+				    $.each( pin, function( index, port ){
+				    	 old_state.push(port['state']);
+				    });
+				});
+
+				var p = 2;
+
+				for (var i = 0; i < old_state.length; i++) {
+					if(old_state[i] == 'ON'){
+						state_ctrl[p] = STATES.ON;
+					}else{
+						state_ctrl[p] = STATES.OFF;
+					}
+					p++;
+				}
+
+
+			{% endif %}
+
+		</script>
+
 		<script src="{{url_for('static',filename='jquery/events.js')}}"></script>
 
 	</head>
@@ -34,11 +83,6 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarResponsive">
 					<ul class="navbar-nav ml-auto">
-						<li class="nav-item active">
-							<a class="nav-link" href="index">Home
-								<span class="sr-only">(current)</span>
-							</a>
-						</li>
 						<li class="nav-item active">
 							<a class="nav-link" href="logout">Cerrar Sesión
 							</a>

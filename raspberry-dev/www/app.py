@@ -102,7 +102,5 @@ def controler():
 ###*
 #Si se ejecuta este archivo el main se toma en cuenta, sino no.
 if __name__ == "__main__":
-		
-        app.run(debug=True)
-	#app.run(host='http://192.168.99.100', port=8888, debug=True)
+	app.run(debug=True)
 

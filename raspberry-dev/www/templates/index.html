@@ -19,21 +19,6 @@
 		<!-- Custom styles for this template -->
 		<link href="{{url_for('static',filename='css/blog-home.css')}}"  rel="stylesheet" >
 
-		<!-- <script>
-				/**
-				 * [Si la variable exisste y es distinta de cero]
-				 */
-				if(typeof period !== 'undefined' && period != 0){
-					//$('head').append('<meta http-equiv="refresh" content="' + period + '" />');
-					
-					/**
-					 * Ejecuta la funcion getUsers cada period [segundos]
-					 */
-					
-					//setInterval(getUsers, period);
-
-		</script>-->
-
 	</head>
 
 	<body>
@@ -48,7 +33,7 @@
 				<div class="collapse navbar-collapse" id="navbarResponsive">
 					<ul class="navbar-nav ml-auto">
 						<li class="nav-item active">
-							<a class="nav-link" href="index">Iniciar Sésión
+							<a class="nav-link" href="index">Iniciar Sesión
 								<span class="sr-only">(current)</span>
 							</a>
 						</li>
@@ -116,12 +101,9 @@
 								  <p class="mb-0"></p>
 								</div>
 								{% endif %}
-
-
 						</div>
 					</div>
 				</div>
-
 			</div>
 			<!-- /.row -->
 		</div>

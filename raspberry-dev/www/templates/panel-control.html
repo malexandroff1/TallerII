@@ -43,21 +43,14 @@
 
 			{% if form %}
 				pines.push({{ form|safe }});
-			
-
-				//console.log(pines[0]);
 
 				$.each( pines, function( index, pin ){
-				    //console.log(value);
 				    var  i = 0;
 
 				    $.each( pin, function( index, port ){
-				    	 //console.log(port);
 				    	 old_state.push(port['state']);
 				    });
 				});
-
-				//console.log(old_state);
 
 				var p = 2;
 
@@ -69,8 +62,6 @@
 					}
 					p++;
 				}
-
-				//console.log(STATES.properties[state_ctrl[4]].code );
 
 
 			{% endif %}
