@@ -76,8 +76,6 @@ def validate_form(form):
 
     return len(form.errors) == 0
 
-
-
 ###*
 #Cuando se ejecuta /index se redirige a la pagina index.html
 @app.route('/')
