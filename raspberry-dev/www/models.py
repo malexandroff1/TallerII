@@ -23,13 +23,13 @@ class Pin(Base):
     id = Column(Integer, primary_key=True)
     pin = Column(Integer, unique=True)
     state = Column(String(10), unique=True)
-    type = Column(String(10), unique=True)
+    ty = Column(String(10), unique=True)
 
-    def __init__(self, pin=None, state=None):
+    def __init__(self, pin=None, state=None, ty=None):
         self.pin = pin
         self.state = state
-        self.type = type
+        self.ty = ty
 
     def __repr__(self):
-        return 'Number Pin: ' + self.pin
+        return 'Number Pin: ' + str(self.pin)
 

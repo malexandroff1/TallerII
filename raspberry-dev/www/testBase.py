@@ -13,5 +13,5 @@ if __name__ == "__main__":
     pin.pin = 1
     #db.get_pin(pin)
     #print(pin)
-    print(db.get_pin(pin))
-    #print(pins)
+    pins = db.get_all_pin()
+    print(pins)
