@@ -61,3 +61,8 @@ class Database(object):
         session.close()
         return pin
 
+    def get_all_pin(self):
+        session = self.__get_session()
+        pins = session.query(models.Pin).all()
+        return pins 
+

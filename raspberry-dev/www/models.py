@@ -31,5 +31,5 @@ class Pin(Base):
         self.type = type
 
     def __repr__(self):
-        return 'Number Pin: ' + self.pin + ', State Pin: ' + self.state + ', Type Pin: ' + self.type
+        return 'Number Pin: ' + self.pin
 
