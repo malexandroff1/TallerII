@@ -41,7 +41,8 @@ class Database(object):
 
     def update_pin(self, Pin):
         session=self.__get_session()
-        query =  session.query.filter(pin=Pin.pin).update(dict(state= Pin.state))
+        pin = session.query(models.Pin).filter(models.Pin.pin == Pin.pin).first()
+        pin.state = Pin.state
         session.commit()
         session.close()
 

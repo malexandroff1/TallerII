@@ -20,8 +20,8 @@ directory_config = './'
 
 path_config = directory_config + 'properties.cfg'
 
-config = configparser.ConfigParser() 
-config.read(path_config) 
+config = configparser.ConfigParser()
+config.read(path_config)
 
 user = config.get('sessions', 'username')
 password = config.get('sessions','password')
@@ -57,6 +57,7 @@ for p in range(len(pines)):
    GPIO.setup(pines[p].pin, GPIO.OUT)
    GPIO.output(pines[p].pin, GPIO.LOW)
    pines[p].state = "OFF"
+   db.update_pin(pines[p])
 
 
 @app.route('/logout')
@@ -64,6 +65,7 @@ def logout():
    # remove the username from the session if it is there
    session.pop('username', None)
    session.pop('password', None)
+   session.clear()
    return redirect(url_for('index'))
 
 @app.route('/login', methods = ['POST'])
@@ -78,11 +80,13 @@ def login():
 
 @app.route('/panel-control')
 def panelControl():
+        data = []
 	if 'username' in session:
 		username = session['username']
-		for pin in range(len(pins)):
-			pines[pin] = db.get_pin(pines[pin])
-		data = json.dumps(pines)
+		for p in range(len(pines)):
+			pines[p] = db.get_pin(pines[p])
+                        data.append({'pin' : str(pines[p].pin), 'state' : str(pines[p].state)})
+                json_string = json.dumps(data)
 		return render_template('panel-control.html', form=data,user=username)
 	errors = {'Error' : 'You are not logged.'}
 	return render_template('index.html', form=errors)
@@ -130,23 +134,27 @@ def index2():
 
 @app.route('/controler',methods = ['POST'])
 def controler():
-	if request.method == 'POST':
+	if request.method == 'POST' and 'username' in session:
 		valid = validate_form(request.form)
 		if valid:
 			led = int(request.form['led'])
 			state = request.form['state']
-			
+                        pos = 0
+                        for p in range(len(pines)):
+                            if pines[p].pin == led: 
+                                pos = p
+                                break
 			if state == 'ON':
 				GPIO.output(led, GPIO.HIGH)
-                                pins[led].state = "ON"
-				db.update_pin(pins[led])
+                                pines[pos].state = "ON"
+                                db.update_pin(pines[pos])
 			else:
 				GPIO.output(led, GPIO.LOW)
-                                pins[led].state = "OFF"
-                                db.update_pin(pins[led])
+                                pines[pos].state = "OFF"
+                                db.update_pin(pines[pos])
 			return json.dumps({'http': 200})
 		form = request.form
-		return render_template('error.html', form='')
+	return render_template('error.html', form='')
 
 
 ###*

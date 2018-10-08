@@ -5,13 +5,15 @@ import time
 if __name__ == "__main__":
     user = models.User()
     user.username = 'admin'
-    user.password = 'admin'
+    user.password = 'admin1'
     db = database.Database()
     #db.insert_user(user)
     #db.update_password(user)
     pin = models.Pin()
-    pin.pin = 1
+    pin.pin = 2
+    pin.state = "ON"
+    pin.ty = "GPIO"
     #db.get_pin(pin)
     #print(pin)
-    pins = db.get_all_pin()
-    print(pins)
+    db.update_pin(pin)
+    
