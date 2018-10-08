@@ -16,18 +16,20 @@ class User(Base):
         self.password = password
 
     def __repr__(self):
-        return self.username
+        return 'Name  user: ' + self.username
 
 class Pin(Base):
     __tablename__ = 'pins'
     id = Column(Integer, primary_key=True)
     pin = Column(Integer, unique=True)
     state = Column(String(10), unique=True)
+    type = Column(String(10), unique=True)
 
     def __init__(self, pin=None, state=None):
         self.pin = pin
         self.state = state
+        self.type = type
 
     def __repr__(self):
-        return self.state
+        return 'Number Pin: ' + self.pin + ', State Pin: ' + self.state + ', Type Pin: ' + self.type
 

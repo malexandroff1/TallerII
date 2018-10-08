@@ -51,8 +51,13 @@ class Database(object):
         
     def get_user(self, User):
         session = self.__get_session()
-        query = session.query(models.User).filter(models.User.username == User.username)
-        user = models.User()
-        user = query.first()
+        user = session.query(models.User).filter(models.User.username == User.username).first()
         session.close()
         return user
+    
+    def get_pin(self, Pin):
+        session = self.__get_session()
+        pin = session.query(models.Pin).filter(models.Pin.pin == Pin.pin).first()
+        session.close()
+        return pin
+
