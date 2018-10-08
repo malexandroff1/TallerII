@@ -21,7 +21,7 @@ try:
             ID          INTEGER         PRIMARY KEY     AUTOINCREMENT,
             PIN         INT             NOT NULL        UNIQUE,   
             STATE       CHAR(10)        NOT NULL,
-            TYPE        CHAR(10)        NOT NULL
+            TY          CHAR(10)        NOT NULL
         );''')
 
     print "Table PINS created successfully"
