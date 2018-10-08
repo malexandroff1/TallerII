@@ -8,6 +8,8 @@ from flask import make_response
 from flask import session
 import configparser
 import RPi.GPIO as GPIO
+import database
+import models
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -51,10 +53,10 @@ pines.append(pin_4)
 
 # Set each pin as an output and make it low:
 
-for pin in pins:
-   GPIO.setup(pin, GPIO.OUT)
-   GPIO.output(pin, GPIO.LOW)
-   pines[pin].state = "OFF"
+for p in range(len(pines)):
+   GPIO.setup(pines[p].pin, GPIO.OUT)
+   GPIO.output(pines[p].pin, GPIO.LOW)
+   pines[p].state = "OFF"
 
 
 @app.route('/logout')
@@ -82,7 +84,7 @@ def panelControl():
 			pines[pin] = db.get_pin(pines[pin])
 		data = json.dumps(pines)
 		return render_template('panel-control.html', form=data,user=username)
-	errors d= {'Error' : 'You are not logged.'}
+	errors = {'Error' : 'You are not logged.'}
 	return render_template('index.html', form=errors)
 
 def validateFormLogin(form):
@@ -136,10 +138,12 @@ def controler():
 			
 			if state == 'ON':
 				GPIO.output(led, GPIO.HIGH)
-				pins[led]['state'] = 'ON'
+                                pins[led].state = "ON"
+				db.update_pin(pins[led])
 			else:
 				GPIO.output(led, GPIO.LOW)
-            	pins[led]['state'] = 'OFF'
+                                pins[led].state = "OFF"
+                                db.update_pin(pins[led])
 			return json.dumps({'http': 200})
 		form = request.form
 		return render_template('error.html', form='')

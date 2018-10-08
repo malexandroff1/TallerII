@@ -1,3 +1,4 @@
+#!/usr/bin/python
 
 import os
 from flask import redirect, url_for, request, render_template, Flask
@@ -5,17 +6,31 @@ from flask import jsonify
 from flask import json
 from flask import make_response
 from flask import session
+import configparser
+import RPi.GPIO as GPIO
 import database
 import models
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
-user = 'admin'
-password = 'admin'
-
-
 db = database.Database()
+
+directory_config = './'
+
+path_config = directory_config + 'properties.cfg'
+
+config = configparser.ConfigParser() 
+config.read(path_config) 
+
+user = config.get('sessions', 'username')
+password = config.get('sessions','password')
+
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+
+
 pin_2 = models.Pin()
 pin_2.pin = 2
 
@@ -29,11 +44,19 @@ pin_2 = db.get_pin(pin_2)
 pin_3 = db.get_pin(pin_3)
 pin_4 = db.get_pin(pin_4)
 
-pins = {
-   pin_2.pin : {'name' : pin_2.pin, 'state' : pin_2.state},
-   pin_3.pin : {'name' : pin_3.pin, 'state' : pin_3.state},
-   pin_4.pin : {'name' : pin_4.pin, 'state' : pin_4.state}
-}
+pines = []
+
+pines.append(pin_2)
+pines.append(pin_3)
+pines.append(pin_4)
+
+
+# Set each pin as an output and make it low:
+
+for p in range(len(pines)):
+   GPIO.setup(pines[p].pin, GPIO.OUT)
+   GPIO.output(pines[p].pin, GPIO.LOW)
+   pines[p].state = "OFF"
 
 
 @app.route('/logout')
@@ -55,9 +78,14 @@ def login():
 
 @app.route('/panel-control')
 def panelControl():
+        data = []
 	if 'username' in session:
 		username = session['username']
-		return render_template('panel-control.html', form=pins,user=username)
+		for p in range(len(pines)):
+			pines[p] = db.get_pin(pines[p])
+                        data.append({'pin' : pines[p].pin, 'state' : pines[p].state})
+                json_string = json.dumps(data)
+		return render_template('panel-control.html', form=data,user=username)
 	errors = {'Error' : 'You are not logged.'}
 	return render_template('index.html', form=errors)
 
@@ -90,6 +118,8 @@ def validate_form(form):
 
     return len(form.errors) == 0
 
+
+
 ###*
 #Cuando se ejecuta /index se redirige a la pagina index.html
 @app.route('/')
@@ -107,7 +137,15 @@ def controler():
 		if valid:
 			led = int(request.form['led'])
 			state = request.form['state']
-
+			
+			if state == 'ON':
+				GPIO.output(led, GPIO.HIGH)
+                                pins[led].state = "ON"
+				db.update_pin(pins[led])
+			else:
+				GPIO.output(led, GPIO.LOW)
+                                pins[led].state = "OFF"
+                                db.update_pin(pins[led])
 			return json.dumps({'http': 200})
 		form = request.form
 		return render_template('error.html', form='')
@@ -116,5 +154,7 @@ def controler():
 ###*
 #Si se ejecuta este archivo el main se toma en cuenta, sino no.
 if __name__ == "__main__":
-	app.run(debug=True)
+		
+        app.run(debug=True)
+	#app.run(host='http://192.168.99.100', port=8888, debug=True)
 
