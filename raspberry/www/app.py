@@ -1,3 +1,4 @@
+#!/usr/bin/python
 
 import os
 from flask import redirect, url_for, request, render_template, Flask
@@ -10,6 +11,8 @@ import RPi.GPIO as GPIO
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
+db = database.Database()
 
 directory_config = './'
 
@@ -25,16 +28,34 @@ password = config.get('sessions','password')
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
-pins = {
-   2 : {'name' : 'Control 1', 'state' : 'OFF'},
-   3 : {'name' : 'Control 2', 'state' : 'OFF'},
-   4 : {'name' : 'Control 3', 'state' : 'OFF'},
-   }
+
+pin_2 = models.Pin()
+pin_2.pin = 2
+
+pin_3 = models.Pin()
+pin_3.pin = 3
+
+pin_4 = models.Pin()
+pin_4.pin = 4
+
+pin_2 = db.get_pin(pin_2)
+pin_3 = db.get_pin(pin_3)
+pin_4 = db.get_pin(pin_4)
+
+pines = []
+
+pines.append(pin_2)
+pines.append(pin_3)
+pines.append(pin_4)
+
 
 # Set each pin as an output and make it low:
+
 for pin in pins:
    GPIO.setup(pin, GPIO.OUT)
    GPIO.output(pin, GPIO.LOW)
+   pines[pin].state = "OFF"
+
 
 @app.route('/logout')
 def logout():
@@ -57,8 +78,11 @@ def login():
 def panelControl():
 	if 'username' in session:
 		username = session['username']
-		return render_template('panel-control.html', form=pins,user=username)
-	errors = {'Error' : 'You are not logged.'}
+		for pin in range(len(pins)):
+			pines[pin] = db.get_pin(pines[pin])
+		data = json.dumps(pines)
+		return render_template('panel-control.html', form=data,user=username)
+	errors d= {'Error' : 'You are not logged.'}
 	return render_template('index.html', form=errors)
 
 def validateFormLogin(form):

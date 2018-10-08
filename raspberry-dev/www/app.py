@@ -5,7 +5,7 @@ from flask import jsonify
 from flask import json
 from flask import make_response
 from flask import session
-from database import Database
+import database
 import models
 
 app = Flask(__name__)
@@ -15,10 +15,24 @@ user = 'admin'
 password = 'admin'
 
 
+db = database.Database()
+pin_2 = models.Pin()
+pin_2.pin = 2
+
+pin_3 = models.Pin()
+pin_3.pin = 3
+
+pin_4 = models.Pin()
+pin_4.pin = 4
+
+pin_2 = db.get_pin(pin_2)
+pin_3 = db.get_pin(pin_3)
+pin_4 = db.get_pin(pin_4)
+
 pins = {
-   2 : {'name' : 'Control 1', 'state' : 'ON'},
-   3 : {'name' : 'Control 2', 'state' : 'OFF'},
-   4 : {'name' : 'Control 3', 'state' : 'OFF'}
+   pin_2.pin : {'name' : pin_2.pin, 'state' : pin_2.state},
+   pin_3.pin : {'name' : pin_3.pin, 'state' : pin_3.state},
+   pin_4.pin : {'name' : pin_4.pin, 'state' : pin_4.state}
 }
 
 
