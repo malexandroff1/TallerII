@@ -148,55 +148,26 @@
 								  <button type="submit" class="btn btn-primary">Sign in</button>
 							</form>
 							
-
-							<div class="table-responsive-xl">
-								<table class="table">
-									<thead>
-										<tr>
-											<th scope="col">-</th>
-											<th scope="col">Controladore</th>
-											<th scope="col">Acción</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<th scope="row">-</th>
-											<td>Control 1</td>
-											<td id="mt"><button type="button-ctr-1" id="button-ctr-1" class="btn btn-warning btn-lg"></button></td>
-										</tr>
-										<tr>
-											<th scope="row">-</th>
-											<td>Control 2</td>
-											<td id="mh"><button type="button-ctr-2" id="button-ctr-2" class="btn btn-lg btn-warning"></button></td>
-										</tr>
-										<tr>
-											<th scope="row">-</th>
-											<td>Control 3</td>
-											<td id="mw"><button type="button-ctr-3" id="button-ctr-3" class="btn btn-lg btn-warning"></button></td>
-										</tr>
-									</tbody>
-								</table>
-
 							 
-								<br>
+							<br>
 
-								{% if 'led' in form.errors %}
-								<div class="alert alert-danger" role="alert">
-								  <h4 class="alert-heading">Error</h4>
-								  <p>{{ form.errors['led'] }}</p>
-								  <hr>
-								  <p class="mb-0"></p>
-								</div>
-								{% endif %}
-								
-								{% if 'state' in form.errors %}
-								<div class="alert alert-danger" role="alert">
-								  <h4 class="alert-heading">Error</h4>
-								  <p>{{ form.errors['state'] }}</p>
-								  <hr>
-								  <p class="mb-0"></p>
-								</div>
-								{% endif %}
+							{% if 'led' in form.errors %}
+							<div class="alert alert-danger" role="alert">
+							  <h4 class="alert-heading">Error</h4>
+							  <p>{{ form.errors['led'] }}</p>
+							  <hr>
+							  <p class="mb-0"></p>
+							</div>
+							{% endif %}
+							
+							{% if 'state' in form.errors %}
+							<div class="alert alert-danger" role="alert">
+							  <h4 class="alert-heading">Error</h4>
+							  <p>{{ form.errors['state'] }}</p>
+							  <hr>
+							  <p class="mb-0"></p>
+							</div>
+							{% endif %}
 
 
 						</div>
