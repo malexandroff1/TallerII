@@ -80,14 +80,14 @@ def login():
 
 @app.route('/panel-control')
 def panelControl():
-        data = []
+    data = []
 	if 'username' in session:
 		username = session['username']
 		for p in range(len(pines)):
 			pines[p] = db.get_pin(pines[p])
-                        data.append({'pin' : str(pines[p].pin), 'state' : str(pines[p].state)})
-                json_string = json.dumps(data)
-		return render_template('panel-control.html', form=data,user=username)
+            data.append({'pin' : str(pines[p].pin), 'state' : str(pines[p].state)})
+            json_string = json.dumps(data)
+		return render_template('panel-control.html', form=data, user=username)
 	errors = {'Error' : 'You are not logged.'}
 	return render_template('index.html', form=errors)
 
