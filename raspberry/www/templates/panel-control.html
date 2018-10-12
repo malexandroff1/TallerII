@@ -126,7 +126,7 @@
 									    <label class="input-group-text" for="inputGroupSelect01">Control 1</label>
 									  </div>
 									  <select class="custom-select" id="button-ctr-1">
-									    <option {{ if 'choose' in form.data }} selected {{ endif }}>Choose...</option>
+									    <option {% if 'choose' in form.data %} {{ form.data['choose'] }} {% endif %}>Choose...</option>
 									    <option value="1">On</option>
 									    <option value="2">Off</option>
 									  </select>
