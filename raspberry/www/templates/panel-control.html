@@ -41,8 +41,8 @@
 
 			var pines = [];
 
-			{% if form %}
-				pines.push({{ form|safe }});
+			{% if selects %}
+				pines.push({{ selects|safe }});
 
 				$.each( pines, function( index, pin ){
 					var  i = 0;
