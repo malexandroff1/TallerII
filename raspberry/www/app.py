@@ -139,19 +139,19 @@ def controler():
 		if valid:
 			led = int(request.form['led'])
 			state = request.form['state']
-                        pos = 0
-                        for p in range(len(pines)):
-                            if pines[p].pin == led: 
-                                pos = p
-                                break
+            pos = 0
+            for p in range(len(pines)):
+                if pines[p].pin == led: 
+                    pos = p
+                    break
 			if state == 'ON':
 				GPIO.output(led, GPIO.HIGH)
-                                pines[pos].state = "ON"
-                                db.update_pin(pines[pos])
+                pines[pos].state = "ON"
+                db.update_pin(pines[pos])
 			else:
 				GPIO.output(led, GPIO.LOW)
-                                pines[pos].state = "OFF"
-                                db.update_pin(pines[pos])
+                pines[pos].state = "OFF"
+                db.update_pin(pines[pos])
 			return json.dumps({'http': 200})
 		form = request.form
 	return render_template('error.html', form='')
