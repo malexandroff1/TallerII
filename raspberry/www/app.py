@@ -82,7 +82,7 @@ def login():
 def panelControl():
     data = []
     selects = []
-	if 'username' in session:
+    if 'username' in session:
 		username = session['username']
 		for p in range(len(pines)):
 			pines[p] = db.get_pin(pines[p])
