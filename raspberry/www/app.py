@@ -88,7 +88,7 @@ def panelControl():
 			pines[p] = db.get_pin(pines[p])
             data.append({'pin' : str(pines[p].pin), 'state' : str(pines[p].state)})
             json_string = json.dumps(data)
-            selects.append({'on' : 'selected'})
+            selects.append({'on' : str("selected")})
 		return render_template('panel-control.html', form=data, user=username, selects=selects)
 	errors = {'Error' : 'You are not logged.'}
 	return render_template('index.html', form=errors)
