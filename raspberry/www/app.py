@@ -74,25 +74,40 @@ def login():
 		if validateFormLogin(request.form):
 			session['username'] = request.form['username']
 			session['password'] = request.form['password']
-			return redirect(url_for('panel_control'))
+			return redirect(url_for('panel-control'))
 	return render_template('index.html', form=request.form)
 
 
-@app.route('/panel-control')
-def panel_control(form):
-    data = []
+@app.route('/panel-control', methods = ['POST'])
+def panel_control():
+    #data = []
     selects = []
+    led_states = []
     if 'username' in session:
         username = session['username']
+        if request.method == 'POST':
+			valid = validate_form(request.form)
+			if valid:
+			    led_states.append(request.form['led1'])
+		    	led_states.append(request.form['led2'])
+		    	led_states.append(request.form['led3'])
+           		
+            	for p in range(len(pines)):
+            		if led_states[p] == "ON":
+            	   		GPIO.output(pines[p],GPIO.HIGH)
+            	   		db.update_pin(pines[p])
+            		else:
+            			GPIO.output(pines[p], GPIO.LOW)
+            			db.update_pin(pines[p])
 		for p in range(len(pines)):
 	    	pines[p] = db.get_pin(pines[p])
-            data.append({'pin' : str(pines[p].pin), 'state' : str(pines[p].state)})
+            #data.append({'pin' : str(pines[p].pin), 'state' : str(pines[p].state)})
             if pines[p].state == 'ON':
                 selects.append({'pin' : str(pines[p].pin),'choose' : '','on' : 'selected', 'off' : ''})
             else:
                 selects.append({'pin' : str(pines[p].pin),'choose' : 'selected','' : '', 'off' : 'selected'})
-        json_string = json.dumps(data)
-		return render_template('panel_control.html', form=data, user=username, selects=selects)
+        #json_string = json.dumps(data)
+		return render_template('panel_control.html', user=username, selects=selects)
     errors = {'Error' : 'You are not logged.'}
     return render_template('index.html', form=errors)
 
