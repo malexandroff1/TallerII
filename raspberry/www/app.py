@@ -85,20 +85,7 @@ def panel_control():
     led_states = []
     if 'username' in session:
         username = session['username']
-        if request.method == 'POST':
-			valid = validate_form(request.form)
-			if valid:
-			    led_states.append(request.form['led1'])
-		    	led_states.append(request.form['led2'])
-		    	led_states.append(request.form['led3'])
-           		
-            	for p in range(len(pines)):
-            		if led_states[p] == "ON":
-            	   		GPIO.output(pines[p],GPIO.HIGH)
-            	   		db.update_pin(pines[p])
-            		else:
-            			GPIO.output(pines[p], GPIO.LOW)
-            			db.update_pin(pines[p])
+        
 		for p in range(len(pines)):
 	    	pines[p] = db.get_pin(pines[p])
             #data.append({'pin' : str(pines[p].pin), 'state' : str(pines[p].state)})
@@ -154,7 +141,7 @@ def index():
 def index2():
 	return render_template('index.html',form='')
 
-@app.route('/controler',methods = ['POST'])
+@app.route('/controler', methods = ['POST'])
 def controler():
 	if request.method == 'POST' and 'username' in session:
 		valid = validate_form(request.form)
@@ -172,7 +159,7 @@ def controler():
             		GPIO.output(pines[p], GPIO.LOW)
             		db.update_pin(pines[p])
 		    
-		    return json.dumps({'http': 200})
+		    return redirect(url_for('panel-control'))
 		form = request.form
 	return render_template('error.html', form='')
 
