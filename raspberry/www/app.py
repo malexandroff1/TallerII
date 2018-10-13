@@ -93,7 +93,7 @@ def panel_control():
             else:
                 selects.append({'pin' : str(pines[p].pin),'choose' : 'selected','' : '', 'off' : 'selected'})
         #json_string = json.dumps(data)
-        return render_template('panel-control.html', user=username, selects=selects)
+        return render_template('panel-control.html', user=username, selects=selects, form='')
     errors = {'Error' : 'You are not logged.'}
     return render_template('index.html', form=errors)
 
@@ -124,8 +124,8 @@ def validate_form(form):
     if len(form['led2'].strip()) == 0:
     	form.errors['led2'] = 'State can not be blank.'
 
-    if len(form['led2'].strip()) == 0:
-    	form.errors['led2'] = 'State can not be blank.'
+    if len(form['led3'].strip()) == 0:
+    	form.errors['led3'] = 'State can not be blank.'
 
     return len(form.errors) == 0
 
@@ -151,10 +151,7 @@ def controler():
             led_states.append( str(request.form.get('led2')) )
             led_states.append( str(request.form.get('led3')) )
             led_states.append( str(request.form.get('led4')) )
-	    
-            p = 0
-            ok = True
-            
+	        
             for p in  range(len(pines)):
                 if led_states[p] == '1':
                     GPIO.output(pines[p].pin, GPIO.HIGH)
@@ -164,14 +161,9 @@ def controler():
             	    GPIO.output(pines[p].pin, GPIO.LOW)
                     pines[p].state = "OFF"
             	    db.update_pin(pines[p])
-                else:
-		    ok = False
             
-            if ok == False:
-                return 'wrong'
-
  	    return redirect(url_for('panel_control'))
-	#form = request.form
+	form = request.form
     	return render_template('error.html', form='')
     else:
         return redirect(url_for('panel_control'))
