@@ -74,13 +74,13 @@
                                   	    {% for sel in selects %}
 						                    <div class="input-group mb-3">
 												<div class="input-group-prepend">
-									               	<label class="input-group-text">Control Led : sel.pin</label>
+									               	<label class="input-group-text">Control Led : {{ sel.pin }} </label>
 									        	</div>
 
-                                            	<select class="custom-select" id="led{{ sel.pin }}">
+                                            	<select class="custom-select" id="led{{ sel.pin }}" name="led{{ sel.pin }}">
 										       		<option {{ sel.choose }} >Choose...</option>
 										       		<option {{ sel.on }} value="1">On</option>
-										       		<option {{ sel.off  }} vaue="2">Off</option>
+										       		<option {{ sel.off  }} value="2">Off</option>
 										    	</select>
 									        </div>						
 										{% endfor %}
@@ -94,23 +94,23 @@
 
 							<br>
 
-							{% if 'led' in form.errors %}
+							{# if 'led' in form.errors #}
 							<div class="alert alert-danger" role="alert">
 							  <h4 class="alert-heading">Error</h4>
-							  <p>{{ form.errors['led'] }}</p>
+							  <p>{# form.errors['led'] #}</p>
 							  <hr>
 							  <p class="mb-0"></p>
 							</div>
-							{% endif %}
+							{# endif #}
 							
-							{% if 'state' in form.errors %}
+							{# if 'state' in form.errors #}
 							<div class="alert alert-danger" role="alert">
 							  <h4 class="alert-heading">Error</h4>
-							  <p>{{ form.errors['state'] }}</p>
+							  <p>{# form.errors['state'] #}</p>
 							  <hr>
 							  <p class="mb-0"></p>
 							</div>
-							{% endif %}
+							{# endif #}
 
 
 						</div>

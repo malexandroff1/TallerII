@@ -74,27 +74,26 @@ def login():
 		if validateFormLogin(request.form):
 			session['username'] = request.form['username']
 			session['password'] = request.form['password']
-			return redirect(url_for('panel-control'))
+			return redirect(url_for('panel_control'))
 	return render_template('index.html', form=request.form)
 
 
-@app.route('/panel-control', methods = ['POST'])
+@app.route('/panel-control', methods = ['POST', 'GET'])
 def panel_control():
     #data = []
     selects = []
     led_states = []
     if 'username' in session:
         username = session['username']
-        
-		for p in range(len(pines)):
-	    	pines[p] = db.get_pin(pines[p])
+        for p in range(len(pines)):
+	    pines[p] = db.get_pin(pines[p])
             #data.append({'pin' : str(pines[p].pin), 'state' : str(pines[p].state)})
             if pines[p].state == 'ON':
                 selects.append({'pin' : str(pines[p].pin),'choose' : '','on' : 'selected', 'off' : ''})
             else:
                 selects.append({'pin' : str(pines[p].pin),'choose' : 'selected','' : '', 'off' : 'selected'})
         #json_string = json.dumps(data)
-		return render_template('panel_control.html', user=username, selects=selects)
+        return render_template('panel-control.html', user=username, selects=selects)
     errors = {'Error' : 'You are not logged.'}
     return render_template('index.html', form=errors)
 
@@ -141,27 +140,41 @@ def index():
 def index2():
 	return render_template('index.html',form='')
 
-@app.route('/controler', methods = ['POST'])
+@app.route('/controler', methods = ['GET', 'POST'])
 def controler():
-	if request.method == 'POST' and 'username' in session:
-		valid = validate_form(request.form)
-		if valid:
-			led_states = []
-            led_states.append(request.form['led1'])
-		    led_states.append(request.form['led2'])
-		    led_states.append(request.form['led3'])
-           	pos = 0
-            for p in range(len(pines)):
-            	if led_states[p] == "ON":
-            	   	GPIO.output(pines[p],GPIO.HIGH)
-            	   	db.update_pin(pines[p])
-            	else:
-            		GPIO.output(pines[p], GPIO.LOW)
-            		db.update_pin(pines[p])
-		    
-		    return redirect(url_for('panel-control'))
-		form = request.form
-	return render_template('error.html', form='')
+    if request.method == 'POST':
+        #valid = validate_form(request.form)
+	valid = True
+        if valid:
+	    led_states = []
+            
+            led_states.append( str(request.form.get('led2')) )
+            led_states.append( str(request.form.get('led3')) )
+            led_states.append( str(request.form.get('led4')) )
+	    
+            p = 0
+            ok = True
+            
+            for p in  range(len(pines)):
+                if led_states[p] == '1':
+                    GPIO.output(pines[p].pin, GPIO.HIGH)
+                    pines[p].state = "ON"
+                    db.update_pin(pines[p])
+            	elif led_states[p] == '2':
+            	    GPIO.output(pines[p].pin, GPIO.LOW)
+                    pines[p].state = "OFF"
+            	    db.update_pin(pines[p])
+                else:
+		    ok = False
+            
+            if ok == False:
+                return 'wrong'
+
+ 	    return redirect(url_for('panel_control'))
+	#form = request.form
+    	return render_template('error.html', form='')
+    else:
+        return redirect(url_for('panel_control'))
 
 
 ###*
