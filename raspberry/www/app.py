@@ -83,15 +83,18 @@ def panelControl():
     data = []
     selects = []
     if 'username' in session:
-		username = session['username']
-		for p in range(len(pines)):
-			pines[p] = db.get_pin(pines[p])
+        username = session['username']
+	for p in range(len(pines)):
+	    pines[p] = db.get_pin(pines[p])
             data.append({'pin' : str(pines[p].pin), 'state' : str(pines[p].state)})
-            json_string = json.dumps(data)
-            selects.append({'pin' : str(pines[p].pin)},{'choose' : str("selected")},{'on' : str("")},{'off' : str("")})
-		return render_template('panel-control.html', form=data, user=username, selects=selects)
-	errors = {'Error' : 'You are not logged.'}
-	return render_template('index.html', form=errors)
+            if pines[p].state == 'ON':
+                selects.append({'pin' : str(pines[p].pin),'choose' : '','on' : 'selected', 'off' : ''})
+            else:
+                selects.append({'pin' : str(pines[p].pin),'choose' : 'selected','' : '', 'off' : 'selected'})
+        json_string = json.dumps(data)
+	return render_template('panel-control.html', form=data, user=username, selects=selects)
+    errors = {'Error' : 'You are not logged.'}
+    return render_template('index.html', form=errors)
 
 def validateFormLogin(form):
 	form.errors = {}
@@ -139,22 +142,22 @@ def controler():
 	if request.method == 'POST' and 'username' in session:
 		valid = validate_form(request.form)
 		if valid:
-			led = int(request.form['led'])
-			state = request.form['state']
-            pos = 0
-            for p in range(len(pines)):
-                if pines[p].pin == led: 
-                    pos = p
-                    break
-			if state == 'ON':
-				GPIO.output(led, GPIO.HIGH)
-                pines[pos].state = "ON"
-                db.update_pin(pines[pos])
-			else:
-				GPIO.output(led, GPIO.LOW)
-                pines[pos].state = "OFF"
-                db.update_pin(pines[pos])
-			return json.dumps({'http': 200})
+                    led = int(request.form['led'])
+		    state = request.form['state']
+           	    pos = 0
+            	    for p in range(len(pines)):
+                        if pines[p].pin == led: 
+                    	    pos = p
+                    	    break
+		    if state == 'ON':
+		        GPIO.output(led, GPIO.HIGH)
+                        pines[pos].state = "ON"
+                        db.update_pin(pines[pos])
+		    else:
+		        GPIO.output(led, GPIO.LOW)
+                        pines[pos].state = "OFF"
+                        db.update_pin(pines[pos])
+		    return json.dumps({'http': 200})
 		form = request.form
 	return render_template('error.html', form='')
 

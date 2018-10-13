@@ -41,8 +41,8 @@
 
 			var pines = [];
 
-			{% if form %}
-				pines.push({{ form|safe }});
+			{% if selects %}
+				pines.push({{ selects|safe }});
 
 				$.each( pines, function( index, pin ){
 					var  i = 0;
@@ -121,57 +121,23 @@
 						          <h4 class="mb-3">Panel Control</h4>
 						          <form action="panelControl" method="POST">
 						            
-						            <div class="input-group mb-3">
-									  <div class="input-group-prepend">
-									    <label class="input-group-text" for="inputGroupSelect01">Control 1</label>
-									  </div>
-
 									  {% if selects %}
-									  	{% if 'pin' in selects %}
-									  			selects['pin']
-									  	{% endif %}
-									  	{% if 'choose' in selects %}
-									  			selects['choose']
-									  	{% endif %}
-									  	{% if 'on' in selects %}
-									  			selects['on']
-									  	{% endif %}
-									  	{% if 'off' in selects %}
-									  			selects['off']
-									  	{% endif %}
-									  	{% for sel in selects %}
-										    <li><a href="{{ sel.pin }}">{{ sel.choose }}</a></li>
+                                                                              {{ selects  }}
+         								      {% for sel in selects %}
+						                              <div class="input-group mb-3">
+
+                           						           <div class="input-group-prepend">
+									               <label class="input-group-text">Control 1</label>
+									           </div>
+
+                                                                                   <select class="custom-select" id="{{ sel.pin  }}">
+										       <option {{ sel.choose }} >Choose...</option>
+										       <option {{ sel.on }} value="1">On</option>
+										       <option {{ sel.off  }} >Off</option>
+										    </select>
+									        </div>						
 										{% endfor %}
-										<select class="custom-select" id="button-ctr-1">
-										   <option {% if 'choose' in selects %} {{ selects['choose'] }} {% endif %}>Choose...</option>
-										   <option {% if 'on' in selects %} {{ selects['choose'] }} {% endif %} value="1">On</option>
-										   <option value="2">Off</option>
-										</select>
 									  {% endif %}
-									</div>
-
-									 <div class="input-group mb-3">
-									  <div class="input-group-prepend">
-									    <label class="input-group-text" for="inputGroupSelect01">Control 2</label>
-									  </div>
-									  <select class="custom-select" id="button-ctr-2">
-									    <option selected>Choose...</option>
-									    <option value="1">On</option>
-									    <option value="2">Off</option>
-									  </select>
-									</div>
-
-									 <div class="input-group mb-3">
-									  <div class="input-group-prepend">
-									    <label class="input-group-text" for="inputGroupSelect01">Control 3</label>
-									  </div>
-									  <select class="custom-select" id="button-ctr-3">
-									    <option selected>Choose...</option>
-									    <option value="1">On</option>
-									    <option value="2">Off</option>
-									  </select>
-									</div>				
-						
 						            <hr class="mb-4">
 						            <button class="btn btn-primary btn-lg btn-block" type="submit">Confirm Change</button>
 						          </form>
