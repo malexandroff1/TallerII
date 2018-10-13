@@ -74,25 +74,25 @@ def login():
 		if validateFormLogin(request.form):
 			session['username'] = request.form['username']
 			session['password'] = request.form['password']
-			return redirect(url_for('panelControl'))
+			return redirect(url_for('panel_control'))
 	return render_template('index.html', form=request.form)
 
 
 @app.route('/panel-control')
-def panelControl():
+def panel_control(form):
     data = []
     selects = []
     if 'username' in session:
         username = session['username']
-	for p in range(len(pines)):
-	    pines[p] = db.get_pin(pines[p])
+		for p in range(len(pines)):
+	    	pines[p] = db.get_pin(pines[p])
             data.append({'pin' : str(pines[p].pin), 'state' : str(pines[p].state)})
             if pines[p].state == 'ON':
                 selects.append({'pin' : str(pines[p].pin),'choose' : '','on' : 'selected', 'off' : ''})
             else:
                 selects.append({'pin' : str(pines[p].pin),'choose' : 'selected','' : '', 'off' : 'selected'})
         json_string = json.dumps(data)
-	return render_template('panel-control.html', form=data, user=username, selects=selects)
+		return render_template('panel_control.html', form=data, user=username, selects=selects)
     errors = {'Error' : 'You are not logged.'}
     return render_template('index.html', form=errors)
 
@@ -117,14 +117,16 @@ def validateFormLogin(form):
 #NO TOCAR
 def validate_form(form):
     form.errors = {}
-    if len(form['led'].strip()) == 0:
-        form.errors['led'] = 'Led can not be blank.'
+    if len(form['led1'].strip()) == 0:
+        form.errors['led1'] = 'Led can not be blank.'
 
-    if len(form['state'].strip()) == 0:
-    	form.errors['state'] = 'State can not be blank.'
+    if len(form['led2'].strip()) == 0:
+    	form.errors['led2'] = 'State can not be blank.'
+
+    if len(form['led2'].strip()) == 0:
+    	form.errors['led2'] = 'State can not be blank.'
 
     return len(form.errors) == 0
-
 
 
 ###*
@@ -142,21 +144,19 @@ def controler():
 	if request.method == 'POST' and 'username' in session:
 		valid = validate_form(request.form)
 		if valid:
-                    led = int(request.form['led'])
-		    state = request.form['state']
-           	    pos = 0
-            	    for p in range(len(pines)):
-                        if pines[p].pin == led: 
-                    	    pos = p
-                    	    break
-		    if state == 'ON':
-		        GPIO.output(led, GPIO.HIGH)
-                        pines[pos].state = "ON"
-                        db.update_pin(pines[pos])
-		    else:
-		        GPIO.output(led, GPIO.LOW)
-                        pines[pos].state = "OFF"
-                        db.update_pin(pines[pos])
+			led_states = []
+            led_states.append(request.form['led1'])
+		    led_states.append(request.form['led2'])
+		    led_states.append(request.form['led3'])
+           	pos = 0
+            for p in range(len(pines)):
+            	if led_states[p] == "ON":
+            	   	GPIO.output(pines[p],GPIO.HIGH)
+            	   	db.update_pin(pines[p])
+            	else:
+            		GPIO.output(pines[p], GPIO.LOW)
+            		db.update_pin(pines[p])
+		    
 		    return json.dumps({'http': 200})
 		form = request.form
 	return render_template('error.html', form='')

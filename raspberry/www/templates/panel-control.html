@@ -19,56 +19,6 @@
 		<!-- Custom styles for this template -->
 		<link href="{{url_for('static',filename='css/blog-home.css')}}"  rel="stylesheet" >
 
-		<script>
-			var STATES = {
-			  ON: 2,
-			  OFF: 3,
-			  ON_OFF: 4,
-			  properties: {
-				2: {name: "ON", value: 1, code: "ON"},
-				3: {name: "OFF", value: 0, code: "OFF"},
-				4: {name: "ON/OFF", value: 1, code: "ON/OFF"}
-			  }
-			};
-
-			var state_ctrl = {
-				2 : STATES.ON_OFF,
-				3 : STATES.ON_OFF,
-				4 : STATES.ON_OFF
-			};
-
-			var old_state = [];
-
-			var pines = [];
-
-			{% if selects %}
-				pines.push({{ selects|safe }});
-
-				$.each( pines, function( index, pin ){
-					var  i = 0;
-
-					$.each( pin, function( index, port ){
-						 old_state.push(port['state']);
-					});
-				});
-
-				var p = 2;
-
-				for (var i = 0; i < old_state.length; i++) {
-					if(old_state[i] == 'ON'){
-						state_ctrl[p] = STATES.ON;
-					}else{
-						state_ctrl[p] = STATES.OFF;
-					}
-					p++;
-				}
-
-
-			{% endif %}
-
-		</script>
-
-		<!-- <script src="{{url_for('static',filename='jquery/events.js')}}"></script> -->
 
 	</head>
 
@@ -119,25 +69,22 @@
 
 							<div class="col-md-8 mx-auto">
 						          <h4 class="mb-3">Panel Control</h4>
-						          <form action="panelControl" method="POST">
-						            
-									  {% if selects %}
-                                                                              {{ selects  }}
-         								      {% for sel in selects %}
-						                              <div class="input-group mb-3">
+						          <form action="controler" method="POST">
+						          	{% if selects %}
+                                  	    {% for sel in selects %}
+						                    <div class="input-group mb-3">
+												<div class="input-group-prepend">
+									               	<label class="input-group-text">Control Led : sel.pin</label>
+									        	</div>
 
-                           						           <div class="input-group-prepend">
-									               <label class="input-group-text">Control 1</label>
-									           </div>
-
-                                                                                   <select class="custom-select" id="{{ sel.pin  }}">
-										       <option {{ sel.choose }} >Choose...</option>
-										       <option {{ sel.on }} value="1">On</option>
-										       <option {{ sel.off  }} >Off</option>
-										    </select>
+                                            	<select class="custom-select" id="led{{ sel.pin }}">
+										       		<option {{ sel.choose }} >Choose...</option>
+										       		<option {{ sel.on }} value="1">On</option>
+										       		<option {{ sel.off  }} vaue="2">Off</option>
+										    	</select>
 									        </div>						
 										{% endfor %}
-									  {% endif %}
+									{% endif %}
 						            <hr class="mb-4">
 						            <button class="btn btn-primary btn-lg btn-block" type="submit">Confirm Change</button>
 						          </form>

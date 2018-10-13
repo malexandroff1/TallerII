@@ -1,5 +1,51 @@
-
+	
 $(function () {
+
+	var STATES = {
+	ON: 2,
+	OFF: 3,
+	ON_OFF: 4,
+	properties: {
+	2: {name: "ON", value: 1, code: "ON"},
+	3: {name: "OFF", value: 0, code: "OFF"},
+	4: {name: "ON/OFF", value: 1, code: "ON/OFF"}
+	}
+	};
+
+	var state_ctrl = {
+	2 : STATES.ON_OFF,
+	3 : STATES.ON_OFF,
+	4 : STATES.ON_OFF
+	};
+
+	var old_state = [];
+
+	var pines = [];
+
+	{% if selects %}
+	pines.push({{ selects|safe }});
+
+	$.each( pines, function( index, pin ){
+		var  i = 0;
+
+		$.each( pin, function( index, port ){
+			 old_state.push(port['state']);
+		});
+	});
+
+	var p = 2;
+
+	for (var i = 0; i < old_state.length; i++) {
+		if(old_state[i] == 'ON'){
+			state_ctrl[p] = STATES.ON;
+		}else{
+			state_ctrl[p] = STATES.OFF;
+		}
+		p++;
+	}
+
+
+			
 
 	$("#button-ctr-1").html(STATES.properties[state_ctrl[2]].name);
 	$("#button-ctr-2").html(STATES.properties[state_ctrl[3]].name);
