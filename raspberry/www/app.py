@@ -23,8 +23,16 @@ path_config = directory_config + 'properties.cfg'
 config = configparser.ConfigParser()
 config.read(path_config)
 
-user = config.get('sessions', 'username')
-password = config.get('sessions','password')
+#user = config.get('sessions', 'username')
+#password = config.get('sessions','password')
+
+user = models.User()
+user.username = 'admin'
+user.password = 'admin'
+user = db.get_user(user)
+
+user_name = user.username
+password = user.password
 
 
 GPIO.setmode(GPIO.BCM)
@@ -109,7 +117,7 @@ def validateFormLogin(form):
 		form.errors['username'] = 'Username can not be blank.'
 	elif form['username'].isdigit():
 		form.errors['username'] = 'Username can not be integer.' 
-	elif user != form['username']:
+	elif user_name != form['username']:
 		form.errors['username'] = 'You not are register.'
 	elif password != form['password']:
 		form.errors['password'] = 'Your password falied.'
