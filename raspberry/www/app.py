@@ -60,11 +60,16 @@ for p in range(len(pines)):
    db.update_pin(pines[p])
 
 
+@app.after_request
+def after_request(response):
+    response.headers["Cache-Control"]="no-cache, no-store, must-revalidate"
+    return response
+
 @app.route('/logout')
 def logout():
    # remove the username from the session if it is there
-   session.pop('username', None)
-   session.pop('password', None)
+   session.pop('username')
+   session.pop('password')
    session.clear()
    return redirect(url_for('index'))
 
