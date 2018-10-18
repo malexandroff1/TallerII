@@ -6,7 +6,6 @@ from flask import jsonify
 from flask import json
 from flask import make_response
 from flask import session
-import configparser
 import RPi.GPIO as GPIO
 import database
 import models
@@ -15,13 +14,6 @@ app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 db = database.Database()
-
-directory_config = './'
-
-path_config = directory_config + 'properties.cfg'
-
-config = configparser.ConfigParser()
-config.read(path_config)
 
 #user = config.get('sessions', 'username')
 #password = config.get('sessions','password')

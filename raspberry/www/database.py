@@ -13,7 +13,7 @@ class Database(object):
 
     def __get_session(self):
         if self.session == None:
-            url_sqlite = 'sqlite:///../database/panel-control.db'
+            url_sqlite = 'sqlite:///database/panel-control.db'
             engine = create_engine(url_sqlite,convert_unicode=True,echo=True)
             Session = scoped_session(sessionmaker(autocommit=False,autoflush=True,bind=engine))
             self.session = Session()
@@ -41,7 +41,9 @@ class Database(object):
 
     def update_pin(self, Pin):
         session=self.__get_session()
-        query =  session.query.filter(pin=Pin.pin).update(dict(state= Pin.state))
+        pin = session.query(models.Pin).filter(models.Pin.pin == Pin.pin).first()
+        pin.state = Pin.state
+        pin.ty = Pin.ty
         session.commit()
         session.close()
 
