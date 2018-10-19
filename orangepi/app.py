@@ -32,13 +32,13 @@ GPIO.setwarnings(False)
 '''
 
 pin_2 = models.Pin()
-pin_2.pin = 2
+pin_2.pin = 11
 
 pin_3 = models.Pin()
-pin_3.pin = 3
+pin_3.pin = 12
 
 pin_4 = models.Pin()
-pin_4.pin = 4
+pin_4.pin = 6
 
 pin_2 = db.get_pin(pin_2)
 pin_3 = db.get_pin(pin_3)
@@ -153,9 +153,9 @@ def controler():
         if valid:
 	    led_states = []
             
-            led_states.append( str(request.form.get('led2')) )
-            led_states.append( str(request.form.get('led3')) )
-            led_states.append( str(request.form.get('led4')) )
+            led_states.append( str(request.form.get('led11')) )
+            led_states.append( str(request.form.get('led12')) )
+            led_states.append( str(request.form.get('led6')) )
 	        
             for p in  range(len(pines)):
                 if led_states[p] == '1':
