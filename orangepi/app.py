@@ -19,15 +19,9 @@ db = database.Database()
 #user = config.get('sessions', 'username')
 #password = config.get('sessions','password')
 
-user = models.User()
-user.username = 'admin'
-user.password = 'admin'
-user = db.get_user(user)
-
-user_name = user.username
-password = user.password
 
 gpio.init()
+
 
 pin_2 = models.Pin()
 pin_2.pin = 11
@@ -101,6 +95,15 @@ def panel_control():
 def validateFormLogin(form):
 	form.errors = {}
 
+    user = models.User()
+    user.username = request.form['username']
+    user.password = request.form['password']
+
+    user = db.get_user(user)
+
+    user_name = user.username
+    password = user.password
+
 	if len(form['username'].strip()) == 0:
 		form.errors['username'] = 'Username can not be blank.'
 	elif form['username'].isdigit():
@@ -109,6 +112,7 @@ def validateFormLogin(form):
 		form.errors['username'] = 'You not are register.'
 	elif password != form['password']:
 		form.errors['password'] = 'Your password falied.'
+
 
 	if len(form['password'].strip()) == 0:
 		form.errors['password'] = 'Password can not be blank.'
