@@ -6,7 +6,8 @@ from flask import jsonify
 from flask import json
 from flask import make_response
 from flask import session
-#import RPi.GPIO as GPIO
+from pyA20.gpio import gpio
+from pyA20.gpio import port
 import database
 import models
 
@@ -18,10 +19,9 @@ db = database.Database()
 #user = config.get('sessions', 'username')
 #password = config.get('sessions','password')
 
-'''
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
-'''
+
+gpio.init()
+
 
 pin_2 = models.Pin()
 pin_2.pin = 11
@@ -46,8 +46,8 @@ pines.append(pin_4)
 # Set each pin as an output and make it low:
 
 for p in range(len(pines)):
-   #GPIO.setup(pines[p].pin, GPIO.OUT)
-   #GPIO.output(pines[p].pin, GPIO.LOW)
+   gpio.setcfg(pines[p].pin, gpio.OUTPUT) 
+   gpio.output(pines[p].pin, gpio.LOW)
    pines[p].state = "OFF"
    db.update_pin(pines[p])
 
@@ -84,12 +84,10 @@ def panel_control():
         username = session['username']
         for p in range(len(pines)):
 	    pines[p] = db.get_pin(pines[p])
-            #data.append({'pin' : str(pines[p].pin), 'state' : str(pines[p].state)})
             if pines[p].state == 'ON':
                 selects.append({'pin' : str(pines[p].pin),'choose' : '','on' : 'selected', 'off' : ''})
             else:
                 selects.append({'pin' : str(pines[p].pin),'choose' : 'selected','' : '', 'off' : 'selected'})
-        #json_string = json.dumps(data)
         return render_template('panel-control.html', user=username, selects=selects, form='')
     errors = {'Error' : 'You are not logged.'}
     return render_template('index.html', form=errors)
@@ -121,8 +119,7 @@ def validateFormLogin(form):
 	return len(form.errors) == 0
 
 
-###*
-#NO TOCAR
+
 def validate_form(form):
     form.errors = {}
     if len(form['led1'].strip()) == 0:
@@ -150,8 +147,7 @@ def index2():
 @app.route('/controler', methods = ['GET', 'POST'])
 def controler():
     if request.method == 'POST':
-        #valid = validate_form(request.form)
-	valid = True
+	    valid = True
         if valid:
 	    led_states = []
             
@@ -161,11 +157,11 @@ def controler():
 	        
             for p in  range(len(pines)):
                 if led_states[p] == '1':
-                    #GPIO.output(pines[p].pin, GPIO.HIGH)
+                    GPIO.output(pines[p].pin, gpio.HIGH)
                     pines[p].state = "ON"
                     db.update_pin(pines[p])
             	elif led_states[p] == '2':
-            	    #GPIO.output(pines[p].pin, GPIO.LOW)
+            	    GPIO.output(pines[p].pin, gpio.LOW)
                     pines[p].state = "OFF"
             	    db.update_pin(pines[p])
             
