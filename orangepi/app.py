@@ -6,10 +6,12 @@ from flask import jsonify
 from flask import json
 from flask import make_response
 from flask import session
-from pyA20.gpio import gpio
-from pyA20.gpio import port
+#from pyA20.gpio import gpio
+#from pyA20.gpio import port
+import OPi.GPIO as GPIO
 import database
 import models
+import time
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -20,17 +22,18 @@ db = database.Database()
 #password = config.get('sessions','password')
 
 
-gpio.init()
+#gpio.init()
+GPIO.setmode(GPIO.BCM)
 
 
 pin_2 = models.Pin()
-pin_2.pin = 11
+pin_2.pin = 2
 
 pin_3 = models.Pin()
-pin_3.pin = 12
+pin_3.pin = 3
 
 pin_4 = models.Pin()
-pin_4.pin = 6
+pin_4.pin = 4
 
 pin_2 = db.get_pin(pin_2)
 pin_3 = db.get_pin(pin_3)
@@ -46,8 +49,10 @@ pines.append(pin_4)
 # Set each pin as an output and make it low:
 
 for p in range(len(pines)):
-   gpio.setcfg(pines[p].pin, gpio.OUTPUT) 
-   gpio.output(pines[p].pin, gpio.LOW)
+   #gpio.setcfg(pines[p].pin, gpio.OUTPUT) 
+   #gpio.output(pines[p].pin, gpio.LOW)
+   GPIO.setup(pines[p].pin, GPIO.OUT)
+   GPIO.output(pines[p].pin, GPIO.LOW)
    pines[p].state = "OFF"
    db.update_pin(pines[p])
 
@@ -93,7 +98,7 @@ def panel_control():
     return render_template('index.html', form=errors)
 
 def validateFormLogin(form):
-	form.errors = {}
+    form.errors = {}
 
     user = models.User()
     user.username = request.form['username']
@@ -104,19 +109,20 @@ def validateFormLogin(form):
     user_name = user.username
     password = user.password
 
-	if len(form['username'].strip()) == 0:
-		form.errors['username'] = 'Username can not be blank.'
-	elif form['username'].isdigit():
-		form.errors['username'] = 'Username can not be integer.' 
-	elif user_name != form['username']:
-		form.errors['username'] = 'You not are register.'
-	elif password != form['password']:
-		form.errors['password'] = 'Your password falied.'
+    if len(form['username'].strip()) == 0:
+	form.errors['username'] = 'Username can not be blank.'
+    elif form['username'].isdigit():
+  	form.errors['username'] = 'Username can not be integer.' 
+    elif user_name != form['username']:
+	form.errors['username'] = 'You not are register.'
+    elif password != form['password']:
+	form.errors['password'] = 'Your password falied.'
 
 
-	if len(form['password'].strip()) == 0:
-		form.errors['password'] = 'Password can not be blank.'
-	return len(form.errors) == 0
+    if len(form['password'].strip()) == 0:
+ 	form.errors['password'] = 'Password can not be blank.'
+    
+    return len(form.errors) == 0
 
 
 
@@ -148,26 +154,26 @@ def index2():
 def controler():
     if request.method == 'POST':
 	    valid = True
-        if valid:
-	    led_states = []
+            if valid:
+	        led_states = []
             
-            led_states.append( str(request.form.get('led11')) )
-            led_states.append( str(request.form.get('led12')) )
-            led_states.append( str(request.form.get('led6')) )
+                led_states.append( str(request.form.get('led2')) )
+                led_states.append( str(request.form.get('led3')) )
+                led_states.append( str(request.form.get('led4')) )
 	        
-            for p in  range(len(pines)):
-                if led_states[p] == '1':
-                    GPIO.output(pines[p].pin, gpio.HIGH)
-                    pines[p].state = "ON"
-                    db.update_pin(pines[p])
-            	elif led_states[p] == '2':
-            	    GPIO.output(pines[p].pin, gpio.LOW)
-                    pines[p].state = "OFF"
-            	    db.update_pin(pines[p])
+                for p in  range(len(pines)):
+                    if led_states[p] == '1':
+                        GPIO.output(pines[p].pin, GPIO.HIGH)
+                        pines[p].state = "ON"
+                        db.update_pin(pines[p])
+            	    elif led_states[p] == '2':
+            	        GPIO.output(pines[p].pin, GPIO.LOW)
+                        pines[p].state = "OFF"
+            	        db.update_pin(pines[p])
             
- 	    return redirect(url_for('panel_control'))
-	form = request.form
-    	return render_template('error.html', form='')
+ 	        return redirect(url_for('panel_control'))
+	    form = request.form
+    	    return render_template('error.html', form='')
     else:
         return redirect(url_for('panel_control'))
 
