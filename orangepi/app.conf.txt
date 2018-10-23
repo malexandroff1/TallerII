@@ -1,0 +1,13 @@
+<virtualhost *:80>
+   ServerName app
+ 
+   WSGIDaemonProcess app user=www-data group=www-data threads=5 home=/var/www/flask-prod/
+   WSGIScriptAlias / /var/www/flask-prod/app.wsgi
+ 
+   <directory /var/www/flask-prod/>
+       WSGIProcessGroup app
+       WSGIApplicationGroup %{GLOBAL}
+       WSGIScriptReloading On
+       Require all granted
+   </directory>
+</virtualhost>

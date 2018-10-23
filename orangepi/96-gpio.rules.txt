@@ -1,0 +1,4 @@
+# /etc/udev/rules.d/96-gpio.rules
+SUBSYSTEM=="gpio*", PROGRAM="/bin/sh -c '\
+    chown -R root:gpio /sys/class/gpio && chmod -R 0770 /sys/class/gpio &&\
+    chown -R root:gpio /sys/devices/platform/sunxi-pinctrl/gpio && chmod -R 0770 /sys/devices/platform/sunxi-pinctrl/gpio'"
